@@ -21,9 +21,9 @@ Route::get('dashboard', function () {
 Route::get('logins', function () {
     return view('logins');
 });
-Route::get('/', function () {
-    //whatever
-})->middleware('auth');
+// Route::get('/', function () {
+//     //whatever
+// })->middleware('auth');
 
 Auth::routes();
 
