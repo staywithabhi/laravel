@@ -15,15 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('dashboard', function () {
-    return view('dashboard');
-});
-Route::get('logins', function () {
-    return view('logins');
-});
-// Route::get('/', function () {
-// })->middleware('auth');
+Route::group(['middleware' => 'auth'], function () {
+    //    Route::get('/link1', function ()    {
+//        // Uses Auth Middleware
+//    });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+    //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
+    #adminlte_routes
+});
