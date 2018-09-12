@@ -11,21 +11,21 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('dashboard', function () {
-    return view('dashboard');
-});
+// Route::get('dashboard', function () {
+//     return view('dashboard');
+// });
 Route::get('profile','UserController@profile');
 Route::post('profile','UserController@update_profile');
 Route::auth();
 
 
-// Route::get('/', function () {
-//     //whatever
-//     })->middleware('auth');
+Route::get('/', function () {
+    return view('home');
+    })->middleware('auth');
 // Route::group(['middleware' => 'auth'], function () {
 //     //    Route::get('/link1', function ()    {
 // //        // Uses Auth Middleware
