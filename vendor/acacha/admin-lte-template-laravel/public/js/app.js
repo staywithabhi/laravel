@@ -25001,11 +25001,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this = this;
 
       this.form.post('/login').then(function (response) {
+		$('#error-login').hide();
         var component = _this;
         setTimeout(function () {
           component.redirect(response);
         }, 2500);
       }).catch(function (error) {
+	//   alert("helllo world");
+	  $('#error-login').show();
+	//   $('.login-box button').disabled(false);
+	  $('.login-box button').prop("disabled", false); 
         console.log(_this.trans('adminlte_lang_message.loginerror') + ':' + error);
       });
     },

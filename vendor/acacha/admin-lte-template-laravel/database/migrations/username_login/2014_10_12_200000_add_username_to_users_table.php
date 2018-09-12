@@ -15,6 +15,7 @@ class AddUserNameToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('username')->unique()->nullable();
+            $table->string('avatar')->default('default.jpg');
         });
     }
 

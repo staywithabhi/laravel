@@ -102,6 +102,7 @@ export default {
          }, 2500);
        })
        .catch(error => {
+         alert("hello workd");
          console.log(this.trans('adminlte_lang_message.loginerror') + ':' + error)
        })
     },

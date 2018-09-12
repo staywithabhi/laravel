@@ -11,17 +11,26 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 Route::get('/', function () {
-    //whatever
-    })->middleware('auth');
-Route::group(['middleware' => 'auth'], function () {
-    //    Route::get('/link1', function ()    {
-//        // Uses Auth Middleware
-//    });
-
-    //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
-    #adminlte_routes
+    return view('welcome');
 });
+
+Route::get('dashboard', function () {
+    return view('dashboard');
+});
+Route::get('profile','UserController@profile');
+Route::post('profile','UserController@update_profile');
+Route::auth();
+
+
+// Route::get('/', function () {
+//     //whatever
+//     })->middleware('auth');
+// Route::group(['middleware' => 'auth'], function () {
+//     //    Route::get('/link1', function ()    {
+// //        // Uses Auth Middleware
+// //    });
+
+//     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
+//     #adminlte_routes
+// });

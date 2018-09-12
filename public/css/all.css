@@ -15,7 +15,38 @@ html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
+.login-logo, .register-logo {
+  font-size: 35px;
+  text-align: center;
+  margin-bottom: 2px!important;
+  font-weight: 300;
+}
 
+.panel-green > .panel-heading {
+  border-color: #5cb85c;
+  color: white;
+  background-color: #5cb85c;
+}
+.panel-yellow > .panel-heading {
+  border-color: #f0ad4e;
+  color: white;
+  background-color: #f0ad4e;
+}
+.panel-red > .panel-heading {
+  border-color: #d9534f;
+  color: white;
+  background-color: #d9534f;
+}
+
+.panel-red {
+  border-color: #d9534f!important;
+}
+.panel-green {
+  border-color: #5cb85c!important;
+}
+.panel-yellow {
+  border-color: #f0ad4e!important;
+}
 body {
   margin: 0;
 }
