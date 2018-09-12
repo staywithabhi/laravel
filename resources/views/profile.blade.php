@@ -41,7 +41,7 @@
 					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div> -->
 				<div class="form-group has-feedback">
-					<input placeholder="Enter New Password Or Leave Blank" name="password" class="form-control" type="password">
+					<input placeholder="Enter New Password Or Leave Blank To Use Existing" name="password" class="form-control" type="password">
 					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>	
 				<div class="form-group has-feedback">
