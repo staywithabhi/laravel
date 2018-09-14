@@ -21,6 +21,9 @@
 Route::get('profile','UserController@profile');
 Route::post('profile','UserController@update_profile');
 Route::get('staff',array('as'=>'viewStaff','uses'=>'StaffController@index'));
+Route::get('addNewStaff',array('as'=>'addNewStaff','uses'=>'StaffController@addNewStaff'));
+Route::post('saveStaff',array('as'=>'save','uses'=>'StaffController@save'));
+
 Route::auth();
 
 

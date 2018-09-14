@@ -55,11 +55,13 @@ desired effect
 
 </div><!-- ./wrapper -->
 </div>
-@yield('customscripts')
-
 @section('scripts')
     @include('adminlte::layouts.partials.scripts')
 @show
+<script src="{{ asset('/js/jquery.dataTables.js') }}"></script> 
+<script src="{{ asset('/js/dataTables.bootstrap.min.js') }}"></script> 
 
+
+@yield('customscripts')
 </body>
 </html>

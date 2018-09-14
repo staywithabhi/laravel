@@ -7,12 +7,8 @@
 
     <link href="{{ asset('/css/all.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('/css/jquery.dataTables.css') }}" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="{{ asset('/js/jquery.dataTables.js') }}"></script> 
-<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link href="{{ asset('/css/dataTables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
  
-
-    
 
     <!-- <link href="{{ asset('/css/all.css') }}" rel="stylesheet" type="text/css" /> -->
     

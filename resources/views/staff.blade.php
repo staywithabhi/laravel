@@ -24,27 +24,14 @@
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
                                     <b>Staff Info</b>
+            <a href="{{ url('/addNewStaff') }}" class="btn btn-success btn-add-new">
+                <i class="voyager-plus"></i> <span>{{ trans('adminlte_lang::message.AddStaff') }}</span>
+            </a>
+    
                                 </div>
                                 <div class="panel-body">
-                                    <table  id="staff-table"class="table table-hover table-bordered">
-                                        <thead>
-                                            <th>Id</th> 
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Image</th>
-                                           
-                                        </thead>
-                                        <tbody>
-                                        @foreach($staff as $member)
-                                        <tr>
-                                            <td>{{ $member->id }}</td>
-                                            <td>{{ $member->name }}</td>
-                                            <td>{{ $member->email }}</td>
-                                            <td>{{ $member->avatar }}</td>
-                                        </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                 
+                                {!! $html->table(['class'=>'table-stripped']) !!}
                                 </div>
 
                             </div>
@@ -60,10 +47,6 @@
 	</div>
 
 @endsection
-@section('customscripts')
-<script type="text/javascript">
- $("#staff-table").DataTable({
-    serverside:false,
- });
-</script>
-@stop
+<!-- @section('customscripts')
+{!! $html->scripts() !!}
+@stop -->

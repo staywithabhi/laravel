@@ -134,4 +134,5 @@ return [
     'loggedin'                => 'Logged in!',
     'entering'                => 'Entering...',
     'registered'              => 'User Registered!',
+    'AddStaff'                =>  'Add New Staff Member',  
 ];
