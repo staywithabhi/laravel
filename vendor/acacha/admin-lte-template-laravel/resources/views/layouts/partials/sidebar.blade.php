@@ -31,7 +31,7 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
-            <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
+            <!-- <li class="header">{{ trans('adminlte_lang::message.header') }}</li> -->
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="{{ url('home') }}"><i class='fa fa-home'></i> <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
             <li><a href="{{ url('/client') }}"><i class='fa fa-users'></i> <span>Manage Clients</span></a></li>
