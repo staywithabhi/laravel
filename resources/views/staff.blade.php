@@ -6,6 +6,22 @@
 
 
 @section('main-content')
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Delete Current user
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this user?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-danger btn-ok">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
 	<div class="container-fluid spark-screen">
 		<div class="row">
 			<div class="col-md-12">
@@ -22,9 +38,9 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    <b>Staff Info</b>
-            <a href="{{ url('/addNewStaff') }}" class="btn btn-success btn-add-new">
+                                <div class="panel-heading text-right">
+                                    <b style="float:left;margin-top:5px">Staff Info</b>
+            <a href="{{ url('/addNewStaff') }}" class="btn btn-primary btn-add-new" style="border: 1px solid;">
                 <i class="voyager-plus"></i> <span>{{ trans('adminlte_lang::message.AddStaff') }}</span>
             </a>
     

@@ -26,22 +26,22 @@
                                 <div class="panel-body">
                                     <form enctype="multipart/form-data" action="/saveStaff" method="POST">
                                         <div class="form-group has-feedback ">
+                                        {{ Form::label('name','Name')}}
                                             <input placeholder="Full Name" name="name" value="" autofocus="autofocus" class="form-control" type="text" required>
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         </div>
                                         <div class="form-group has-feedback">
+                                        {{ Form::label('name','Email')}}
                                             <input placeholder="Email" name="email" value="{{ $user->email }}" class="form-control" type="email"  required/>
                                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                         </div>
                                         <div class="form-group has-feedback">
-                                            <input placeholder="Enter New Password Or Leave Blank To Use Existing" name="password" class="form-control" type="password" required>
+                                        {{ Form::label('name','Password')}}
+                                            <input placeholder="Enter Password here" name="password" class="form-control" type="password" required>
                                             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                         </div>	
                                         <div class="form-group has-feedback">
-                                            <input placeholder="Enter New Password Or Leave Blank To Use Existing" name="confirm" class="form-control" type="password"required>
-                                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                                        </div>	
-                                        <div class="form-group has-feedback">
+                                        {{ Form::label('name','User Type')}}
                                         <select  name ="usertype" class="form-control form-control-lg" required>
                                             <option value=''>Please Select A Role</option>
                                             <option value="standad">Standard</option>
@@ -50,6 +50,7 @@
                                         <span class="glyphicon glyphicon-compressed form-control-feedback"></span>
                                         </div>
                                         <div class="form-group has-feedback">
+                                        {{ Form::label('name','Avatar Image')}}
                                             <input placeholder="Upload Profile Avatar" name="avatar" class="form-control" type="file" required>
                                             <span class="glyphicon glyphicon-camera form-control-feedback"></span>
                                         </div>	

@@ -7,60 +7,52 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Datatables;
+use Illuminate\Support\Facades\Input;
 use App\User;
 use DB;
 use Hash;
+use Validator;
 use Image;
 
 class StaffController extends Controller
 {
-    //
     public function __construct(){
         $this->middleware('auth');
     }
-
-
     public function index(Request $request,Builder $htmlbuilder)
     {
-        // echo "hello";exit;
         if($request->ajax())
         {
-            $staff=DB::table('users')->select(['id','name','email','avatar']);
-            return Datatables::of($staff)->make(true);
+            $staff=DB::table('users')->select(['id','name','email','usertype','avatar']);
+            return Datatables::of($staff)
+            ->addColumn('action', function($row) {
+                return '<a href="/userEdit/'. $row->id .'" class="btn btn-primary">Edit</a>
+                <a data-href="/userDelete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>';
+            })
+            ->make(true);
         }
-        // $staff=DB::table('users')->get();
         $html= $htmlbuilder
-        ->addColumn([
-            'defaultContent' => '<input type="checkbox" />',
-            'title'          => '',
-            'data'           => 'checkbox',
-            'name'           => 'checkbox',
-            'orderable'      => false,
-            'searchable'     => false,
-            'exportable'     => false,
-            'printable'      => true,
-            'width'          => '10px',
-        ])
+        // ->addCheckbox([
+        //     'title'         =>'checkbox',
+        //     'data'           => 'checkbox',
+        //     'name'           => 'name',
+        //     'id'             =>  'id',
+        //     'value'          =>  'id',
+        //     'orderable'      => false,
+        //     'searchable'     => false,
+        //     'exportable'     => false,
+        //     'printable'      => true,
+        //     'width'          => '10px',
+        // ])
         ->addColumn(['data'=>'id','name'=>'id','title'=>'id'])
         ->addColumn(['data'=>'name','name'=>'name','title'=>'name'])
         ->addColumn(['data'=>'email','name'=>'email','title'=>'email'])
+        ->addColumn(['data'=>'usertype','name'=>'usertype','title'=>'usertype'])
         ->addColumn(['data'=>'avatar','name'=>'avatar','title'=>'avatar'])
         ->addColumn([
-            'defaultContent' => '<a href="#">Edit</a>',
+            'defaultContent' => '',
             'data'           => 'action',
-            'name'           => 'action',
-            'title'          => 'Action',
-            'render'         => null,
-            'orderable'      => false,
-            'searchable'     => false,
-            'exportable'     => false,
-            'printable'      => true,
-            'footer'         => '',
-        ])
-        ->addColumn([
-            'defaultContent' => '<a href="#">Delete</a>',
-            'data'           => 'action',
-            'name'           => 'action',
+            'name'           => 'delete',
             'title'          => 'Action',
             'render'         => null,
             'orderable'      => false,
@@ -69,7 +61,6 @@ class StaffController extends Controller
             'printable'      => true,
             'footer'         => '',
         ]);
-
         return view('staff')->with(compact('html'));
     }
 
@@ -82,7 +73,8 @@ class StaffController extends Controller
     {
         $user= new User;
        
-
+        try {
+ 
         if($request->input('name'))
         {
             $name = $request->input('name');
@@ -117,8 +109,95 @@ class StaffController extends Controller
         }
 
         $user->save();
-    	// return view('staff')->with(compact('html'));
-        // return view('staff');
+        $request->session()->flash('alert-success', 'User was added successfully!');
+
+    }
+    catch(\Illuminate\Database\QueryException $e){
+        $errorCode = $e->errorInfo[1];
+        if($errorCode == '1062'){
+            $request->session()->flash('alert-danger', 'Another record with same email already exists');
+
+        }
+    }
         return redirect()->action('StaffController@index');
+    }
+
+    public function edit($id)
+    {
+        $user=User::find($id);
+      
+        if($user){
+
+            return view('edituser')->with('user',$user);  echo "abhios".$id;
+            exit;
+        }
+        else{
+            echo "dd".$id;
+            exit;
+            $msg ='Sorry, User can not be found';
+            $type='warning';
+            return redirect()->action('StaffController@index')
+                        ->with($type,$msg);
+        }
+    }
+
+     public function update($id,Request $request)
+    {
+        // echo "abhios";
+        // exit;
+        $rules=array(
+        'name' => 'required|max:255',
+        'email' => 'required|email|max:255',
+        'usertype' => 'required',
+        // 'password' => 'required|min:6|confirmed',
+        // 'accept_terms' => 'required|accepted',
+        );
+        $validator=Validator::make(Input::all(),$rules);
+        $this->validate($request, ['name'=>'required']);
+        if($validator->fails()){
+            return redirect('userEdit/'.$id)->withErrors($validator)->withInput();
+        }
+        else{
+
+            $user=User::find($id);
+            $user->name=Input::get('name');
+            $user->email=Input::get('email');
+            $user->usertype=Input::get('usertype');
+            if(Input::get('password')){
+                $hashed = Hash::make(Input::get('password'));
+                $user->password= $hashed;
+                // $user->password=Input::get('email')
+            }
+             if($request->hasFile('avatar')){
+                $avatar = $request->file('avatar');
+                $filename = time() . '.' . $avatar->getClientOriginalExtension();
+                Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+                $user->avatar = $filename;
+            }
+            $user->save();
+
+            $request->session()->flash('alert-success', 'User was updated successfully!');
+  return redirect()->action('StaffController@index');
+
+        }
+        # code...
+    }
+
+
+
+    public function destroy($id)
+    {
+        $user=User::find($id);
+        if($user){
+            $user->delete();
+           $msg ='User deleted successfully';
+           $type='success';
+        }
+        else{
+            $msg ='Sorry, User can not be found';
+            $type='warning';
+        }
+        return redirect()->action('StaffController@index')
+                        ->with($type,$msg);
     }
 }

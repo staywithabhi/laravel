@@ -22,6 +22,9 @@ Route::get('profile','UserController@profile');
 Route::post('profile','UserController@update_profile');
 Route::get('staff',array('as'=>'viewStaff','uses'=>'StaffController@index'));
 Route::get('addNewStaff',array('as'=>'addNewStaff','uses'=>'StaffController@addNewStaff'));
+Route::get('userDelete/{id}',array('as'=>'userDelete','uses'=>'StaffController@destroy'));
+Route::get('userEdit/{id}',array('as'=>'userEdit','uses'=>'StaffController@edit'));
+Route::put('updateUser/{id}',array('as'=>'updateUser','uses'=>'StaffController@update'));
 Route::post('saveStaff',array('as'=>'save','uses'=>'StaffController@save'));
 
 Route::auth();
