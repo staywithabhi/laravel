@@ -9,6 +9,7 @@ use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Datatables;
 use Illuminate\Support\Facades\Input;
 use App\User;
+use App\Role;
 use DB;
 use Hash;
 use Validator;
@@ -109,6 +110,16 @@ class StaffController extends Controller
         }
 
         $user->save();
+        if($request->input('usertype'))
+        {
+            $usertype = $request->input('usertype');
+            $role_user=Role::where('name',$usertype)->first();
+            // echo "role type is<pre>";
+            // print_r($role_user);
+            // exit;
+            // $user->usertype= $usertype;
+            $user->roles()->attach($role_user);
+        }
         $request->session()->flash('alert-success', 'User was added successfully!');
 
     }
@@ -128,12 +139,10 @@ class StaffController extends Controller
       
         if($user){
 
-            return view('edituser')->with('user',$user);  echo "abhios".$id;
-            exit;
+            return view('edituser')->with('user',$user);  
         }
         else{
-            echo "dd".$id;
-            exit;
+         
             $msg ='Sorry, User can not be found';
             $type='warning';
             return redirect()->action('StaffController@index')
@@ -174,7 +183,15 @@ class StaffController extends Controller
                 Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
                 $user->avatar = $filename;
             }
+
             $user->save();
+            $user->roles()->detach();
+            if(Input::get('usertype')){
+                $role_user=Role::where('name',Input::get('usertype'))->first();
+                $user->roles()->attach($role_user);
+
+            }
+            // $user->roles()->attach($role_user);
 
             $request->session()->flash('alert-success', 'User was updated successfully!');
   return redirect()->action('StaffController@index');

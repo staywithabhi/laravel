@@ -20,12 +20,26 @@
 // });
 Route::get('profile','UserController@profile');
 Route::post('profile','UserController@update_profile');
-Route::get('staff',array('as'=>'viewStaff','uses'=>'StaffController@index'));
-Route::get('addNewStaff',array('as'=>'addNewStaff','uses'=>'StaffController@addNewStaff'));
-Route::get('userDelete/{id}',array('as'=>'userDelete','uses'=>'StaffController@destroy'));
-Route::get('userEdit/{id}',array('as'=>'userEdit','uses'=>'StaffController@edit'));
-Route::put('updateUser/{id}',array('as'=>'updateUser','uses'=>'StaffController@update'));
-Route::post('saveStaff',array('as'=>'save','uses'=>'StaffController@save'));
+Route::get('staff',['as'=>'viewStaff','uses'=>'StaffController@index','middleware'=>'roles','roles'=>['admin']]);
+Route::get('addNewStaff',['as'=>'addNewStaff','uses'=>'StaffController@addNewStaff','middleware'=>'roles','roles'=>['admin']]);
+Route::get('userDelete/{id}',['as'=>'userDelete','uses'=>'StaffController@destroy','middleware'=>'roles','roles'=>['admin']]);
+Route::get('userEdit/{id}',['as'=>'userEdit','uses'=>'StaffController@edit','middleware'=>'roles','roles'=>['admin']]);
+Route::put('updateUser/{id}',['as'=>'updateUser','uses'=>'StaffController@update','middleware'=>'roles','roles'=>['admin']]);
+Route::post('saveStaff',['as'=>'save','uses'=>'StaffController@save','middleware'=>'roles','roles'=>['admin']]);
+/*Routes For Clients*/
+Route::get('clients',['as'=>'clients','uses'=>'ClientController@index','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::get('clientAdd',['as'=>'clientAdd','uses'=>'ClientController@addNewClient','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::get('clientDelete/{id}',['as'=>'clientDelete','uses'=>'ClientController@destroy','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::get('clientEdit/{id}',['as'=>'clientEdit','uses'=>'ClientController@edit','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::put('clientUpdate/{id}',['as'=>'clientUpdate','uses'=>'ClientController@update','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::post('clientSave',['as'=>'clientSave','uses'=>'ClientController@save','middleware'=>'roles','roles'=>['standard','admin']]);
+
+
+
+
+/**End routes for clients**/ 
+
+
 
 Route::auth();
 

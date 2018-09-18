@@ -44,7 +44,7 @@
                                         {{ Form::label('name','User Type')}}
                                         <select  name ="usertype" class="form-control form-control-lg" required>
                                             <option value=''>Please Select A Role</option>
-                                            <option value="standad">Standard</option>
+                                            <option value="standard">Standard</option>
                                             <option value="admin">Administrator</option>
                                         </select>       
                                         <span class="glyphicon glyphicon-compressed form-control-feedback"></span>
