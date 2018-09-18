@@ -43,7 +43,6 @@
             <a href="{{ url('/clientAdd') }}" class="btn btn-primary btn-add-new" style="border: 1px solid;">
                 <i class="voyager-plus"></i> <span>{{ trans('adminlte_lang::message.AddClients') }}</span>
             </a>
-    
                                 </div>
                                 <div class="panel-body">
                                  
