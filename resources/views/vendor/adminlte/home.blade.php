@@ -28,12 +28,12 @@
                                     <i class="fa fa-users fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> {{$user::where(['usertype' => 'client'])->get()->count() }}</div>
+                                    <div class="huge"> {{$clients::where(['usertype' => 'client'])->get()->count() }}</div>
                                     <div>Number of Clients</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="{{ url('/clients') }}">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
