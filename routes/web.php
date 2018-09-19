@@ -29,10 +29,19 @@ Route::post('saveStaff',['as'=>'save','uses'=>'StaffController@save','middleware
 /*Routes For Clients*/
 Route::get('clients',['as'=>'clients','uses'=>'ClientController@index','middleware'=>'roles','roles'=>['standard','admin']]);
 Route::get('clientAdd',['as'=>'clientAdd','uses'=>'ClientController@addNewClient','middleware'=>'roles','roles'=>['standard','admin']]);
-Route::get('clientDelete/{id}',['as'=>'clientDelete','uses'=>'ClientController@destroy','middleware'=>'roles','roles'=>['standard','admin']]);
-Route::get('clientEdit/{id}',['as'=>'clientEdit','uses'=>'ClientController@edit','middleware'=>'roles','roles'=>['standard','admin']]);
-Route::put('clientUpdate/{id}',['as'=>'clientUpdate','uses'=>'ClientController@update','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::get('client/delete/{id}',['as'=>'clientDelete','uses'=>'ClientController@destroy','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::get('client/edit/{id}',['as'=>'editClient','uses'=>'ClientController@edit','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::put('client/update/{id}',['as'=>'clientUpdate','uses'=>'ClientController@update','middleware'=>'roles','roles'=>['standard','admin']]);
 Route::post('clientSave',['as'=>'clientSave','uses'=>'ClientController@save','middleware'=>'roles','roles'=>['standard','admin']]);
+
+Route::get('/members/manage/{id}',['as'=>'manage','uses'=>'MemberController@index','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::get('/members/add/{id}',['as'=>'addMember','uses'=>'MemberController@addMemberToClient','middleware'=>'roles','roles'=>['standard','admin']]);
+// Route::post('/members/save',['as'=>'memberSave','uses'=>'MemberController@saveMemberToClient','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::post('memberSave',['as'=>'memberSave','uses'=>'MemberController@saveMemberToClient','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::get('memberDelete/{id}',['as'=>'memberDelete','uses'=>'MemberController@destroy','middleware'=>'roles','roles'=>['admin']]);
+Route::get('memberEdit/{id}',['as'=>'memberEdit','uses'=>'MemberController@edit','middleware'=>'roles','roles'=>['admin']]);
+Route::put('member/update/{id}',['as'=>'memberUpdate','uses'=>'MemberController@update','middleware'=>'roles','roles'=>['standard','admin']]);
+
 
 
 

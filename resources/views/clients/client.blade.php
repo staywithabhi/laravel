@@ -10,7 +10,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                Delete Current user
+                Delete This Client
             </div>
             <div class="modal-body">
                 Are you sure you want to delete this client?
@@ -29,13 +29,6 @@
 				<!-- Default box -->
         		<div id="page-wrapper">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">Dashboard</h1>
-                        </div>
-                        <!-- /.col-lg-12 -->
-                    </div>
-                    <!-- /.row -->
-                    <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading text-right">
@@ -45,8 +38,47 @@
             </a>
                                 </div>
                                 <div class="panel-body">
-                                 
-                                {!! $html->table(['class'=>'table-stripped']) !!}
+                                    @foreach($clients as $client)
+                                        <div class="col-lg-3 col-md-6">
+                                            <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                    <div class="row">
+                                                        <div class="col-xs-3">
+                                                            <i class="fa fa-tasks fa-5x"></i>
+                                                        </div>
+                                                        <div class="col-xs-9 text-right" style="margin-top: 20px;">
+                                                            <div class="huge">
+                                                                @if($count=$members::where(['client_id' => $client->id])->get()->count())
+                                        {{ $count }} Members 
+                                        @else
+                                        No Members
+                                        @endif
+                                                            </div>
+                                                            <div>{{ $client->title }}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <a href="{{ route('editClient', ['id' => $client->id]) }}">
+                                                    <div class="panel-footer">
+                                                        <span class="pull-left">Edit Client</span>
+                                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </a>
+
+                                                <a data-href="{{ route('clientDelete', ['id' => $client->id]) }}"  class="close" aria-label="Delete" style="position: absolute;top: 3px;   right: 20px" data-toggle="modal" data-target="#confirm-delete">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                                <a href="{{ route('manage', ['id' => $client->id]) }}">
+                                                    <div class="panel-footer">
+                                                        <span class="pull-left">Manage Members</span>
+                                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                                        <div class="clearfix"></div>
+                                                    </div>
+                                                </a>                        
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
 
                             </div>
@@ -62,6 +94,3 @@
 	</div>
 
 @endsection
-<!-- @section('customscripts')
-{!! $html->scripts() !!}
-@stop -->

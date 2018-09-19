@@ -11,7 +11,7 @@
                 Delete Current user
             </div>
             <div class="modal-body">
-                Are you sure you want to delete this user?
+                Are you sure you want to delete this client?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -26,23 +26,23 @@
 
 				<!-- Default box -->
         		<div id="page-wrapper">
-                    <div class="row">
+<!--                     <div class="row">
                         <div class="col-lg-12">
                             <h1 class="page-header">Dashboard</h1>
                         </div>
-                        <!-- /.col-lg-12 -->
-                    </div>
+                    </div> -->
                     <!-- /.row -->
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading text-right">
-                                    <b style="float:left;margin-top:5px">Staff Info</b>
-                                    <a href="{{ url('/addNewStaff') }}" class="btn btn-primary btn-add-new" style="border: 1px solid;">
-                                        <i class="voyager-plus"></i> <span>{{ trans('adminlte_lang::message.AddStaff') }}</span>
-                                    </a>
+                                    <b style="float:left;margin-top:5px">Clients Management Area</b>
+            <a href="{{ route('addMember', ['id' => $id]) }}" class="btn btn-primary btn-add-new" style="border: 1px solid;">
+                <i class="voyager-plus"></i> <span>{{ trans('adminlte_lang::message.AddNew') }}</span>
+            </a>
                                 </div>
                                 <div class="panel-body">
+                                 
                                 {!! $html->table(['class'=>'table-stripped']) !!}
                                 </div>
 

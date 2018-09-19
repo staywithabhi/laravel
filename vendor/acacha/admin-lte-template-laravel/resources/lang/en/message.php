@@ -135,5 +135,6 @@ return [
     'entering'                => 'Entering...',
     'registered'              => 'User Registered!',
     'AddStaff'                =>  'Add New Staff Member',  
-    'AddClients'              =>  'Add Client',    
+    'AddClients'              =>  'Add Client',   
+    'AddNew'                  =>    'Add New',
 ];

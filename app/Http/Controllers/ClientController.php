@@ -9,6 +9,7 @@ use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Datatables;
 use Illuminate\Support\Facades\Input;
 use App\Clients;
+use App\Members;
 use App\Role;
 use DB;
 use Hash;
@@ -22,46 +23,13 @@ class ClientController extends Controller
     }
     public function index(Request $request,Builder $htmlbuilder)
     {
-        if($request->ajax())
-        {
-            $clients=DB::table('clients')->select(['id','name','email','avatar']);
-            return Datatables::of($clients)
-            ->addColumn('action', function($row) {
-                return '<a href="/clientEdit/'. $row->id .'" class="btn btn-primary">Edit</a>
-                <a data-href="/clientDelete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>';
-            })
-            ->make(true);
-        }
-        $html= $htmlbuilder
-        // ->addCheckbox([
-        //     'title'         =>'checkbox',
-        //     'data'           => 'checkbox',
-        //     'name'           => 'name',
-        //     'id'             =>  'id',
-        //     'value'          =>  'id',
-        //     'orderable'      => false,
-        //     'searchable'     => false,
-        //     'exportable'     => false,
-        //     'printable'      => true,
-        //     'width'          => '10px',
-        // ])
-        ->addColumn(['data'=>'id','name'=>'id','title'=>'id'])
-        ->addColumn(['data'=>'name','name'=>'name','title'=>'name'])
-        ->addColumn(['data'=>'email','name'=>'email','title'=>'email'])
-        ->addColumn(['data'=>'avatar','name'=>'avatar','title'=>'avatar'])
-        ->addColumn([
-            'defaultContent' => '',
-            'data'           => 'action',
-            'name'           => 'delete',
-            'title'          => 'Action',
-            'render'         => null,
-            'orderable'      => false,
-            'searchable'     => false,
-            'exportable'     => false,
-            'printable'      => true,
-            'footer'         => '',
-        ]);
-        return view('clients.client')->with(compact('html'));
+        
+        $clients= DB::table('clients')->get();
+        // $members=DB::table('client_members')->get();
+        $members= new Members;
+
+        return view('clients.client')->with(compact('clients','members'));
+
     }
 
     public function addNewClient()
@@ -71,42 +39,27 @@ class ClientController extends Controller
 
     public function save(Request $request)
     {
-        $user= new Clients;
+        $client= new Clients;
     
        
         try {
  
-        if($request->input('name'))
+        if($request->input('title'))
         {
-            $name = $request->input('name');
-            $user->name= $name;
+            $title = $request->input('title');
+            $client->title= $title;
         }
         if($request->input('email'))
         {
             $email = $request->input('email');
-            $user->email= $email;
-        }
-        if($request->input('password')){
-            $hashed = Hash::make($request->input('password'));
-            $user->password= $hashed;
-            }
-        if($request->input('remember_token'))
-        {
-            $remember_token = $request->input('remember_token');
-            $user->remember_token= $remember_token;
-        }
-        if($request->hasFile('avatar')){
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' . $avatar->getClientOriginalExtension();
-    		Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
-            $user->avatar = $filename;
+            $client->email= $email;
         }
         
         // echo "abhishekdd <pre>";
         // print_r($user);
         // exit;
 
-        $user->save();
+        $client->save();
           $request->session()->flash('alert-success', 'Client was added successfully!');
 
     }
@@ -123,14 +76,14 @@ class ClientController extends Controller
 
     public function edit($id)
     {
-        $user=Clients::find($id);
+        $client=Clients::find($id);
     //   echo "<pre>";
     //   print_r($user->name);
     //   exit;
-        if($user){
+        if($client){
             
 
-            return view('clients.editclient')->with('user',$user);  
+            return view('clients.editclient')->with('client',$client);  
         }
         else{
            
@@ -146,35 +99,22 @@ class ClientController extends Controller
         // echo "abhios";
         // exit;
         $rules=array(
-        'name' => 'required|max:255',
+        'title' => 'required|max:255',
         'email' => 'required|email|max:255',
-        'usertype' => 'required',
         // 'password' => 'required|min:6|confirmed',
         // 'accept_terms' => 'required|accepted',
         );
         $validator=Validator::make(Input::all(),$rules);
-        $this->validate($request, ['name'=>'required']);
+        $this->validate($request, ['title'=>'required']);
         if($validator->fails()){
-            return redirect('clientEdit/'.$id)->withErrors($validator)->withInput();
+            return redirect('editClient/'.$id)->withErrors($validator)->withInput();
         }
         else{
 
-            $user=Clients::find($id);
-            $user->name=Input::get('name');
-            $user->email=Input::get('email');
-            $user->usertype=Input::get('usertype');
-            if(Input::get('password')){
-                $hashed = Hash::make(Input::get('password'));
-                $user->password= $hashed;
-                // $user->password=Input::get('email')
-            }
-             if($request->hasFile('avatar')){
-                $avatar = $request->file('avatar');
-                $filename = time() . '.' . $avatar->getClientOriginalExtension();
-                Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
-                $user->avatar = $filename;
-            }
-            $user->save();
+            $client=Clients::find($id);
+            $client->title=Input::get('title');
+            $client->email=Input::get('email');
+            $client->save();
 
             $request->session()->flash('alert-success', 'User was updated successfully!');
   return redirect()->action('ClientController@index');
@@ -187,10 +127,10 @@ class ClientController extends Controller
 
     public function destroy($id)
     {
-        $user=Clients::find($id);
-        if($user){
-            $user->delete();
-           $msg ='Client member deleted successfully';
+        $client=Clients::find($id);
+        if($client){
+            $client->delete();
+           $msg ='Client  deleted successfully';
            $type='success';
         }
         else{
