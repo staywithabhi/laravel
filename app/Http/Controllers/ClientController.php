@@ -24,7 +24,7 @@ class ClientController extends Controller
     public function index(Request $request,Builder $htmlbuilder)
     {
         
-        $db2 = DB::connection('mysql2');
+        // $db2 = DB::connection('mysql2');
 
         $clients= $db2->table('clients')->get();
         // $members=DB::table('client_members')->get();
@@ -42,7 +42,7 @@ class ClientController extends Controller
     public function save(Request $request)
     {
         $client= new Clients;
-         $client->setConnection('mysql2');
+         // $client->setConnection('mysql2');
     
        
         try {
