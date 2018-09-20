@@ -26,7 +26,8 @@ class ClientController extends Controller
         
         // $db2 = DB::connection('mysql2');
 
-        $clients= $db2->table('clients')->get();
+        // $clients= $db2->table('clients')->get();
+         $clients= DB::table('clients')->get();
         // $members=DB::table('client_members')->get();
         $members= new Members;
 
