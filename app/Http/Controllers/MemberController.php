@@ -20,7 +20,7 @@ use Image;
 
 class MemberController extends Controller
 {
-    const API_URL = 'http://clientportal.local/api/';
+    const API_URL = 'http://myportal.westgateit.co.uk/api/';
     const API_TOKEN='BCC7vT2DdskjG9kwvfGCkICdz1Y0Ea0BADsjePXdkaiO0hV67z09iVJ5nEJL';
 
     public function __construct(){
