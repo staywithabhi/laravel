@@ -33,18 +33,6 @@ class StaffController extends Controller
             ->make(true);
         }
         $html= $htmlbuilder
-        // ->addCheckbox([
-        //     'title'         =>'checkbox',
-        //     'data'           => 'checkbox',
-        //     'name'           => 'name',
-        //     'id'             =>  'id',
-        //     'value'          =>  'id',
-        //     'orderable'      => false,
-        //     'searchable'     => false,
-        //     'exportable'     => false,
-        //     'printable'      => true,
-        //     'width'          => '10px',
-        // ])
         ->addColumn(['data'=>'id','name'=>'id','title'=>'id'])
         ->addColumn(['data'=>'name','name'=>'name','title'=>'name'])
         ->addColumn(['data'=>'email','name'=>'email','title'=>'email'])
