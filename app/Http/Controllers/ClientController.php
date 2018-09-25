@@ -91,7 +91,7 @@ class ClientController extends Controller
         ->post(self::API_URL.'getClientDetails?api_token='.self::API_TOKEN,
         [
             'form_params' => [
-                'id' => 1,
+                'id' => $id,
             ],
         ]
         
