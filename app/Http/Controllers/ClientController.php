@@ -140,7 +140,7 @@ class ClientController extends Controller
             $clients = json_decode($clientRequest->getBody()->getContents());
             if($clients)
             {
-                $request->session()->flash('alert-success', 'User was updated successfully!');
+                $request->session()->flash('alert-success', 'Client was updated successfully!');
             }
             else{
                 $request->session()->flash('alert-danger', 'There was error process your request!');
