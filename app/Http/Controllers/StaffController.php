@@ -155,7 +155,6 @@ class StaffController extends Controller
             return redirect('userEdit/'.$id)->withErrors($validator)->withInput();
         }
         else{
-
             $user=User::find($id);
             $user->name=Input::get('name');
             $user->email=Input::get('email');
@@ -165,24 +164,23 @@ class StaffController extends Controller
                 $user->password= $hashed;
                 // $user->password=Input::get('email')
             }
-             if($request->hasFile('avatar')){
+            if($request->hasFile('avatar'))
+            {
                 $avatar = $request->file('avatar');
                 $filename = time() . '.' . $avatar->getClientOriginalExtension();
                 Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
                 $user->avatar = $filename;
             }
-
             $user->save();
             $user->roles()->detach();
             if(Input::get('usertype')){
-                $role_user=Role::where('name',Input::get('usertype'))->first();
-                $user->roles()->attach($role_user);
-
+            $role_user=Role::where('name',Input::get('usertype'))->first();
+            $user->roles()->attach($role_user);
             }
             // $user->roles()->attach($role_user);
 
             $request->session()->flash('alert-success', 'User was updated successfully!');
-  return redirect()->action('StaffController@index');
+            return redirect()->action('StaffController@index');
 
         }
         # code...

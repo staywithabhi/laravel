@@ -48,11 +48,11 @@
                                                         </div>
                                                         <div class="col-xs-9 text-right" style="margin-top: 20px;">
                                                             <div class="huge">
-                                                            {{--  @if($count=$members::where(['client_id' => $client->id])->get()->count())
+                                                          {{-- @if($count=$members::where('client_id',$client->id)->get()->count()) 
                                         {{ $count }} Members 
                                         @else
                                         No Members
-                                        @endif--}}&nbsp;
+                                        @endif--}}
                                                             </div>
                                                             <div>{{ $client->title }}</div>
                                                         </div>
