@@ -123,7 +123,7 @@ class MemberController extends Controller
             // exit;
             $client = new GuzzleHttpClient();
             $clientRequest = $client
-            ->post('http://clientportal.local/api/uploadImage',
+            ->post('http://myportal.westgateit.co.uk/api/uploadImage',
             [
                 'multipart' => [
                     [
