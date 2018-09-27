@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Datatables;
 use Illuminate\Support\Facades\Input;
+use GuzzleHttp\Client as GuzzleHttpClient;
+use GuzzleHttp\Exception\RequestException;
 use App\User;
 use App\Role;
 use App\Clients;
@@ -19,6 +21,8 @@ use Image;
 
 class MemberController extends Controller
 {
+        // const API_URL = 'http://clientportal.local/api/';
+    // const API_TOKEN='BCC7vT2DdskjG9kwvfGCkICdz1Y0Ea0BADsjePXdkaiO0hV67z09iVJ5nEJL';
     public function __construct(){
         $this->middleware('auth');
     }
@@ -107,9 +111,34 @@ class MemberController extends Controller
         }
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
+            // echo "<pre>";
+            // print_r($avatar->getClientOriginalExtension());
+            // exit;
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
-    		Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
+    		Image::make($avatar)->resize(300, 300,function($constraint)
+            {
+                $constraint->aspectRatio();
+            })->save( public_path('/uploads/avatars/' . $filename ) );
+            // echo public_path('/uploads/avatars/' . $filename );
+            // exit;
+            $client = new GuzzleHttpClient();
+            $clientRequest = $client
+            ->post('http://clientportal.local/api/uploadImage',
+            [
+                'multipart' => [
+                    [
+                        'name'     =>  'avatar',
+                        'contents' => fopen(public_path('/uploads/avatars/' . $filename ), 'r')
+                    ],
+                   
+                ]
+            ]);
+            $clients = json_decode($clientRequest->getBody()->getContents());
+        //   echo "abhgfdishek<pre>";
+        //   print_r($clients);
+        //   exit;
             $member->avatar = $filename;
+
         }
         
         $member->save();

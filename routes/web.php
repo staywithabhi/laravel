@@ -36,22 +36,15 @@ Route::post('clientSave',['as'=>'clientSave','uses'=>'ClientController@save','mi
 
 Route::get('/members/manage/{id}',['as'=>'manage','uses'=>'MemberController@index','middleware'=>'roles','roles'=>['standard','admin']]);
 Route::get('/members/add/{id}',['as'=>'addMember','uses'=>'MemberController@addMemberToClient','middleware'=>'roles','roles'=>['standard','admin']]);
-// Route::post('/members/save',['as'=>'memberSave','uses'=>'MemberController@saveMemberToClient','middleware'=>'roles','roles'=>['standard','admin']]);
+Route::post('/members/save',['as'=>'memberSave','uses'=>'MemberController@saveMemberToClient','middleware'=>'roles','roles'=>['standard','admin']]);
 Route::post('memberSave',['as'=>'memberSave','uses'=>'MemberController@saveMemberToClient','middleware'=>'roles','roles'=>['standard','admin']]);
 Route::get('memberDelete/{id}',['as'=>'memberDelete','uses'=>'MemberController@destroy','middleware'=>'roles','roles'=>['admin']]);
 Route::get('memberEdit/{id}',['as'=>'memberEdit','uses'=>'MemberController@edit','middleware'=>'roles','roles'=>['admin']]);
 Route::put('member/update/{id}',['as'=>'memberUpdate','uses'=>'MemberController@update','middleware'=>'roles','roles'=>['standard','admin']]);
 
-
-
-
-
 /**End routes for clients**/ 
 
-
-
 Route::auth();
-
 
 Route::get('/', function () {
     return view('home');
