@@ -144,7 +144,7 @@ class MemberController extends Controller
             $client = new GuzzleHttpClient();
             $clientRequest = $client
             //http://myportal.westgateit.co.uk
-            ->post('http://clientportal.local/api/uploadImage',
+            ->post('http://myportal.westgateit.co.uk/api/uploadImage',
             [
                 'multipart' => [
                     [
@@ -172,7 +172,7 @@ class MemberController extends Controller
         {
 
              $clientRequest = $client
-            ->post('http://clientportal.local/api/assignRoles',
+            ->post('http://myportal.westgateit.co.uk/api/assignRoles',
             [
                 'form_params' => [
                         'id'     =>  $cid,
@@ -280,7 +280,7 @@ class MemberController extends Controller
             if(!empty($roles))
             {
                  $clientRequest = $client
-                ->post('http://clientportal.local/api/assignRoles',
+                ->post('http://myportal.westgateit.co.uk/api/assignRoles',
                 [
                     'form_params' => [
                             'id'     =>  $id,
