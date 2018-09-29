@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Datatables;
 use Illuminate\Support\Facades\Input;
+// use App\Http\Controllers\Auth;
+use Auth;
 use App\User;
 use App\Role;
 use DB;
@@ -22,9 +24,14 @@ class StaffController extends Controller
     }
     public function index(Request $request,Builder $htmlbuilder)
     {
+        $id = Auth::user()->id;
+        // echo "id is:-".$id;
+        // exit;
         if($request->ajax())
         {
-            $staff=DB::table('users')->select(['id','name','email','usertype','avatar']);
+            // $id = Auth::user()->getId();
+            $staff=DB::table('users')->select(['id','name','email','usertype','avatar'])
+            ->whereNotIn('id', [$id])->get();
             return Datatables::of($staff)
             ->addColumn('action', function($row) {
                 return '<a href="/userEdit/'. $row->id .'" class="btn btn-primary">Edit</a>
@@ -33,16 +40,26 @@ class StaffController extends Controller
             ->make(true);
         }
         $html= $htmlbuilder
-        ->addColumn(['data'=>'id','name'=>'id','title'=>'id'])
-        ->addColumn(['data'=>'name','name'=>'name','title'=>'name'])
-        ->addColumn(['data'=>'email','name'=>'email','title'=>'email'])
-        ->addColumn(['data'=>'usertype','name'=>'usertype','title'=>'usertype'])
-        ->addColumn(['data'=>'avatar','name'=>'avatar','title'=>'avatar'])
+        ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
+        ->addColumn(['data'=>'name','name'=>'name','title'=>'Name'])
+        ->addColumn(['data'=>'email','name'=>'email','title'=>'Email'])
+        ->addColumn(['data'=>'usertype','name'=>'usertype','title'=>'Usertype'])
+        ->addColumn([
+            'data'=>'avatar',
+            'name'=>'avatar',
+            'title'=>'Avatar',
+            'render' => '"<img src=\"/uploads/avatars/"+data+"\" height=\"50\"/>"',
+            'orderable'      => false,
+            'searchable'     => false,
+            'exportable'     => false,
+            'printable'      => true,
+            'footer'         => '',
+            ])
         ->addColumn([
             'defaultContent' => '',
             'data'           => 'action',
             'name'           => 'delete',
-            'title'          => 'Action',
+            'title'          => 'Actions',
             'render'         => null,
             'orderable'      => false,
             'searchable'     => false,

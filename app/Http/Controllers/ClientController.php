@@ -31,15 +31,8 @@ class ClientController extends Controller
     {
         
         $clients= DB::connection('mysql2')->table('clients')->get();
-        $members= DB::connection('mysql2')->table('users');
-            // echo  "<pre>members are";
-            // print_r($members);
-            // exit;
-            // $members= new Members;
-
-            
+        $members= new Members;
             return view('clients.client')->with(compact('clients','members'));  
-      
     }
 
     public function addNewClient()
@@ -89,17 +82,15 @@ class ClientController extends Controller
     {
         // $id=$request->input('id');
         $client=Clients::find($id);
-        if($client){
-            
-
+        if($client)
+        {
             return view('clients.editclient')->with('client',$client);  
         }
-        else{
-           
+        else
+        {
             $msg ='Sorry, Client can not be found';
             $type='warning';
-            return redirect()->action('ClientController@index')
-                        ->with($type,$msg);
+            return redirect()->action('ClientController@index')->with($type,$msg);
         }
     }
 
@@ -122,16 +113,12 @@ class ClientController extends Controller
 	            $client->email=$request->input('email');
 	            $client->save();
             }
-        
-
             $request->session()->flash('alert-success', 'User was updated successfully!');
-  return redirect()->action('ClientController@index');
+            return redirect()->action('ClientController@index');
 
         }
         # code...
     }
-
-
 
     public function destroy($id)
     {

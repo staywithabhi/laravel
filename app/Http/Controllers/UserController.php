@@ -6,15 +6,24 @@ use App\Http\Requests;
 use Auth;
 use Hash;
 use Image;
+use DB;
+use App\User;
 class UserController extends Controller
 {
     //
     public function profile(){
         return view('profile',array('user'=>Auth::user()));
-
+    }
+    public function home(){
+        // return view('vendor.adminlte.home');
+        $clients= DB::connection('mysql2')->table('clients')->get()->count();
+        // echo "<pre>";
+        // print_r($clients);
+        // exit;
+        $staff= new User;
+        return view('vendor.adminlte.home')->with(compact('clients','staff'));
     }
     public function update_profile(Request $request){
-
         //handle user uploads and other data for profile
                 // Handle the user upload of avatar
                 $user = Auth::user();

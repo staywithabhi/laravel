@@ -28,7 +28,7 @@
                                     <i class="fa fa-users fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"> {{$user::where(['usertype' => 'client'])->get()->count() }}</div>
+                                    <div class="huge"> {{ $clients }}</div>
                                     <div>Number of Clients</div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     <i class="fa fa-user-md fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-								<div class="huge"> {{$user::where(['usertype' => 'standard'])->get()->count() }}</div>
+								<div class="huge"> {{$staff::where(['usertype' => 'standard'])->get()->count() }}</div>
                                     <div>Number of Staff</div>
                                 </div>
                             </div>

@@ -40,7 +40,24 @@
                                             <input placeholder="Enter Password here" name="password" class="form-control" type="password" required>
                                             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                                         </div>	
-  
+                                        <div class="form-group has-feedback">
+                                        {{ Form::label('name','Roles')}}
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                {{ Form::label('name','Manager')}}
+                                                    <input class="member_role" type="checkbox" name="roles[manager]">
+                                                </div>
+                                                <div class="col-md-4">
+                                                {{ Form::label('name','ReadOnly')}}
+                                                    <input class="member_role" type="checkbox" name="roles[readonly]">
+                                                </div>
+                                                <div class="col-md-4">
+                                                {{ Form::label('name','ReadWrite')}}
+                                                    <input class="member_role" type="checkbox" name="roles[readwrite]">         
+                                                </div>
+                                            </div>
+                                        <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
+                                        </div>
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Avatar Image')}}
                                             <input placeholder="Upload Profile Avatar" name="avatar" class="form-control" type="file" required>
@@ -68,4 +85,11 @@
 		</div>
 	</div>
 
+@endsection
+@section('customscripts')
+<script type="text/javascript">
+	    $('.member_role').on('change', function() {
+		    $('.member_role').not(this).prop('checked', false);  
+		});
+    </script>
 @endsection

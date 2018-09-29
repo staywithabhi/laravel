@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="panel-body">
 
-{{ Form::model($user,array('route'=>array('updateUser', $user->id),'method'=>'PUT'))}}
+{{ Form::model($user,array('route'=>array('updateUser', $user->id),'method'=>'PUT','enctype'=>'multipart/form-data'))}}
 <div class="row text-center">
                                                     <img src="/uploads/avatars/{{ $user->avatar }}" class="img-circle" style="width:100px;height:100px" alt="User Image" />
                                                 </div>

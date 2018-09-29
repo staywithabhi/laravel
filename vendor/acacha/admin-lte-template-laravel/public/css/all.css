@@ -16114,7 +16114,7 @@ button.close {
  * ----------
  */
 .skin-blue .main-header .navbar {
-  background-color: #3c8dbc;
+  background-color: #008bcc;
 }
 .skin-blue .main-header .navbar .nav > li > a {
   color: #ffffff;
@@ -18167,7 +18167,7 @@ a:focus {
   transition: width 0.3s ease-in-out;
   display: block;
   float: left;
-  height: 50px;
+  height: 52px;
   font-size: 20px;
   line-height: 50px;
   text-align: center;

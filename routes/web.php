@@ -53,9 +53,8 @@ Route::put('member/update/{id}',['as'=>'memberUpdate','uses'=>'MemberController@
 Route::auth();
 
 
-Route::get('/', function () {
-    return view('home');
-    })->middleware('auth');
+Route::get('/','UserController@home')->middleware('auth');
+Route::get('/home','UserController@home')->middleware('auth');
 // Route::group(['middleware' => 'auth'], function () {
 //     //    Route::get('/link1', function ()    {
 // //        // Uses Auth Middleware

@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Input;
 use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\RequestException;
 use App\User;
-use App\Role;
+// use App\Role;
+use App\Roleclient;
 use App\Clients;
 use App\Members;
 use DB;
@@ -21,8 +22,6 @@ use Image;
 
 class MemberController extends Controller
 {
-        // const API_URL = 'http://clientportal.local/api/';
-    // const API_TOKEN='BCC7vT2DdskjG9kwvfGCkICdz1Y0Ea0BADsjePXdkaiO0hV67z09iVJ5nEJL';
     public function __construct(){
         $this->middleware('auth');
     }
@@ -30,35 +29,52 @@ class MemberController extends Controller
     public function index($id,Request $request,Builder $htmlbuilder)
     {
 
-	 	 $user=Clients::find($id);
+          $user=Clients::find($id);
+          $title=$user->title;
         if(!$user){
   		$clients= DB::connection('mysql2')->table('clients')->get();
   		$request->session()->flash('alert-danger', 'Requested Client can not be found');
-        // return redirect()->action('ClientController@index')->with(compact('clients');
   		return redirect()->action('ClientController@index')->with('clients',$clients);
         }
-
         if($request->ajax())
         {
-            // $staff=DB::table('users  ')->select(['id','name','email','usertype','avatar']);
-             $clients=DB::connection('mysql2')->table('users')->select(['id','name','email','avatar'])->where('client_id',$id);
+            $data='NULL';
+             $clients=DB::connection('mysql2')->table('users')->select(['id','name','email','avatar','roles'])->where('client_id',$id);
             return Datatables::of($clients)
             ->addColumn('action', function($row) {
                 return '<a href="/memberEdit/'. $row->id .'" class="btn btn-primary">Edit</a>
                 <a data-href="/memberDelete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>';
             })
+            // ->addColumn('roles', function($row) {
+            //    if($row->hasRole('manager')){
+            //    $data='manager';
+            // }
+            //     return $data;
+            // })
             ->make(true);
         }
         $html= $htmlbuilder
-        ->addColumn(['data'=>'id','name'=>'id','title'=>'id'])
-        ->addColumn(['data'=>'name','name'=>'name','title'=>'name'])
-        ->addColumn(['data'=>'email','name'=>'email','title'=>'email'])
-        ->addColumn(['data'=>'avatar','name'=>'avatar','title'=>'avatar'])
+        ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
+        ->addColumn(['data'=>'name','name'=>'name','title'=>'Name'])
+        ->addColumn(['data'=>'email','name'=>'email','title'=>'Email'])
+        ->addColumn(['data'=>'roles','name'=>'roles','title'=>'Roles'])
+        ->addColumn([
+            // 'defaultContent' => '',
+            'data'=>'avatar',
+            'name'=>'avatar',
+            'title'=>'Avatar',
+            'render' => '"<img src=\"/uploads/avatars/"+data+"\" width=\"50\"/>"',
+            'orderable'      => false,
+            'searchable'     => false,
+            'exportable'     => false,
+            'printable'      => true,
+            'footer'         => '',
+            ])
         ->addColumn([
             'defaultContent' => '',
             'data'           => 'action',
             'name'           => 'delete',
-            'title'          => 'Action',
+            'title'          => 'Actions',
             'render'         => null,
             'orderable'      => false,
             'searchable'     => false,
@@ -66,7 +82,7 @@ class MemberController extends Controller
             'printable'      => true,
             'footer'         => '',
         ]);
-        return view('clients.members')->with(compact('html','id'));
+        return view('clients.members')->with(compact('html','id','title'));
     
 
     }
@@ -78,11 +94,13 @@ class MemberController extends Controller
 
     public function saveMemberToClient(Request $request)
     {
-    	// echo "abhishek";
-    	// exit;
+ 
         $member= new Members;
        
         try {
+            // echo "request params are<pre>";
+            // print_r($request->all());
+            // exit;
  
         if($request->input('name'))
         {
@@ -94,6 +112,8 @@ class MemberController extends Controller
             $email = $request->input('email');
             $member->email= $email;
         }
+
+        
 
         if($request->input('client_id'))
         {
@@ -123,7 +143,8 @@ class MemberController extends Controller
             // exit;
             $client = new GuzzleHttpClient();
             $clientRequest = $client
-            ->post('http://myportal.westgateit.co.uk/api/uploadImage',
+            //http://myportal.westgateit.co.uk
+            ->post('http://clientportal.local/api/uploadImage',
             [
                 'multipart' => [
                     [
@@ -142,6 +163,30 @@ class MemberController extends Controller
         }
         
         $member->save();
+        $roles=$request->input('roles');
+        // echo "<pre>";
+        // print_r($roles);
+        // exit;
+        $cid=$member->id;
+        if(!empty($roles))
+        {
+
+             $clientRequest = $client
+            ->post('http://clientportal.local/api/assignRoles',
+            [
+                'form_params' => [
+                        'id'     =>  $cid,
+                        'roles' => $roles    
+                   ]
+            ]);
+
+            // $member->roles()->detach();
+            // foreach($roles as $key=>$value)
+            // {
+            //     $member->roles()->attach(Roleclient::where('name', $key)->first());
+            // }
+
+        }
         $request->session()->flash('alert-success', 'Member was added successfully!');
 
     }
@@ -181,6 +226,7 @@ class MemberController extends Controller
     {
         // echo "abhios";
         // exit;
+        $client = new GuzzleHttpClient();
         $rules=array(
         'name' => 'required|max:255',
         'email' => 'required|email|max:255',
@@ -213,9 +259,44 @@ class MemberController extends Controller
                 $filename = time() . '.' . $avatar->getClientOriginalExtension();
                 Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
                 $member->avatar = $filename;
+                $clientRequest = $client
+                ->post('http://myportal.westgateit.co.uk/api/uploadImage',
+                [
+                    'multipart' => [
+                        [
+                            'name'     =>  'avatar',
+                            'contents' => fopen(public_path('/uploads/avatars/' . $filename ), 'r')
+                        ],
+                       
+                    ]
+                ]);
+                $clients = json_decode($clientRequest->getBody()->getContents());
+                // echo $clients;
+                // exit;
             }
 
             $member->save();
+            $roles=$request->input('roles');
+            if(!empty($roles))
+            {
+                 $clientRequest = $client
+                ->post('http://clientportal.local/api/assignRoles',
+                [
+                    'form_params' => [
+                            'id'     =>  $id,
+                            'roles' => $roles           
+                       ]
+                ]);
+    
+                // $member->roles()->detach();
+                // foreach($roles as $key=>$value)
+                // {
+                //     $member->roles()->attach(Roleclient::where('name', $key)->first());
+                // }
+    
+            }
+
+
             
             // $user->roles()->attach($role_user);
 
