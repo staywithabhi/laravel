@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-	{{ trans('adminlte_lang::message.home') }}
+	{{ trans('adminlte_lang::message.profile') }}
 @endsection
 
 
@@ -52,7 +52,7 @@
 				                <!-- <label>Update Profile Image</label>
                 <input type="file" name="avatar">	 -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <input type="submit" class="pull-right btn btn-sm btn-primary">
+                <input type="submit" value="Save" class="pull-right btn btn-md btn-primary">
 			
             	</form>
 			</div>

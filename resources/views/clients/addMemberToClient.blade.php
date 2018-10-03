@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-	{{ trans('adminlte_lang::message.AddClient') }}
+	{{ trans('adminlte_lang::message.addmember') }}
 @endsection
 @section('main-content')
 	<div class="container-fluid spark-screen">
@@ -37,23 +37,24 @@
                                         </div>
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Password')}}
-                                            <input placeholder="Enter Password here" name="password" class="form-control" type="password" required>
-                                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                            <input placeholder="Enter Password here" id="password-field" name="password" class="form-control" type="password" required>
+                                            <!-- <span class="glyphicon glyphicon-lock form-control-feedback"></span> -->
+                                           <span title="Show Password" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password "></span>
                                         </div>	
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Roles')}}
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                {{ Form::label('name','Manager')}}
-                                                    <input class="member_role" type="checkbox" name="roles[manager]">
+                                                {{ Form::label('manager','Manager')}}
+                                                    <input class="member_role" id="manager" type="checkbox" name="roles[manager]">
                                                 </div>
                                                 <div class="col-md-4">
-                                                {{ Form::label('name','ReadOnly')}}
-                                                    <input class="member_role" type="checkbox" name="roles[readonly]">
+                                                {{ Form::label('readonly','Read Only')}}
+                                                    <input class="member_role" id="readonly" type="checkbox" name="roles[readonly]">
                                                 </div>
                                                 <div class="col-md-4">
-                                                {{ Form::label('name','ReadWrite')}}
-                                                    <input class="member_role" type="checkbox" name="roles[readwrite]">         
+                                                {{ Form::label('readwrite','Read Write')}}
+                                                    <input class="member_role" id="readwrite" type="checkbox" name="roles[readwrite]">         
                                                 </div>
                                             </div>
                                         <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
@@ -68,7 +69,7 @@
                                         <input type="file" name="avatar">	 -->
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="client_id" value="{{ $id }}">
-                                        <input type="submit" class="pull-right btn btn-sm btn-primary">
+                                        <input type="submit" value="Save" class="pull-right btn btn-md btn-primary">
                                     
                                     </form>
             </div>
@@ -91,5 +92,18 @@
 	    $('.member_role').on('change', function() {
 		    $('.member_role').not(this).prop('checked', false);  
 		});
+
+        $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                // alert("hello");
+                input.attr("type", "text");
+            } else
+            {
+                // alert("hello2");
+                input.attr("type", "password");
+            }
+        });
     </script>
 @endsection

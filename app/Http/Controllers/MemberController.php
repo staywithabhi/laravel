@@ -54,10 +54,14 @@ class MemberController extends Controller
             ->make(true);
         }
         $html= $htmlbuilder
-        ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
+        // ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
         ->addColumn(['data'=>'name','name'=>'name','title'=>'Name'])
         ->addColumn(['data'=>'email','name'=>'email','title'=>'Email'])
-        ->addColumn(['data'=>'roles','name'=>'roles','title'=>'Roles'])
+        ->addColumn(
+            ['data'=>trans('roles'),
+            'name'=>'roles',
+            'title'=> trans('roles')
+            ])
         ->addColumn([
             // 'defaultContent' => '',
             'data'=>'avatar',

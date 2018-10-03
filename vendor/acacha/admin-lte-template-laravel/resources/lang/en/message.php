@@ -137,4 +137,17 @@ return [
     'AddStaff'                =>  'Add New Staff Member',  
     'AddClients'              =>  'Add Client',   
     'AddNew'                  =>    'Add New',
+    'dashboard'               =>  'Dashboard',
+    'addclient'               =>  'Add Client',
+    'editclient'               =>  'Edit Client',
+    'addstaff'               =>  'Add Staff',
+    'editstaff'               =>  'Edit Staff',
+    'profile'               =>   'Profile',
+    'clients'               => 'Clients',
+    'staff'                   => 'Staff',
+    'members'                 => 'Client Members',
+    'addmember'               => 'Add Member',
+    'editmember'              => 'Edit Member',
+    'readonly'                => 'Read Only',  
+        
 ];

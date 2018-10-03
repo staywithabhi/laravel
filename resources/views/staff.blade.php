@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-	{{ trans('adminlte_lang::message.home') }}
+	{{ trans('adminlte_lang::message.staff') }}
 @endsection
 @section('main-content')
 <div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -27,9 +27,9 @@
 				<!-- Default box -->
         		<div id="page-wrapper">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <h1 class="page-header">Dashboard</h1>
-                        </div>
+                        <!-- <div class="col-lg-12">
+                            <h1 class="page-header">Staff Management</h1>
+                        </div> -->
                         <!-- /.col-lg-12 -->
                     </div>
                     <!-- /.row -->
@@ -37,7 +37,7 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading text-right">
-                                    <b style="float:left;margin-top:5px">Staff Info</b>
+                                    <b style="float:left;margin-top:5px">Staff Management</b>
                                     <a href="{{ url('/addNewStaff') }}" class="btn btn-primary btn-add-new" style="border: 1px solid;">
                                         <i class="voyager-plus"></i> <span>{{ trans('adminlte_lang::message.AddStaff') }}</span>
                                     </a>

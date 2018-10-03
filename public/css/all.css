@@ -9,7 +9,29 @@
  */
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+#usertype {
+  /* for Firefox */
+  -moz-appearance: none;
+  /* for Chrome */
+  -webkit-appearance: none;
+}
+.field-icon {
+  float: right!important;
+  margin-right: 10px!important;
+  margin-top: -25px!important;
+  position: relative!important;
+  z-index: 2!important;
+}
 
+.container{
+  padding-top:50px!important;
+  margin: auto!important;
+}
+
+/* For IE10 */
+#usertype::-ms-expand {
+  display: none;
+}
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -7139,17 +7161,17 @@ button.list-group-item-danger.active:focus {
 }
 
 .panel-primary {
-  border-color: #3097D1;
+  border-color: #008bcc;
 }
 
 .panel-primary > .panel-heading {
   color: #fff;
-  background-color: #3097D1;
-  border-color: #3097D1;
+  background-color: #008bcc;
+  border-color: #008bcc;
 }
 
 .panel-primary > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #3097D1;
+  border-top-color: #008bcc;
 }
 
 .panel-primary > .panel-heading .badge {
@@ -7158,7 +7180,7 @@ button.list-group-item-danger.active:focus {
 }
 
 .panel-primary > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #3097D1;
+  border-bottom-color: #008bcc;
 }
 
 .panel-success {
@@ -16162,7 +16184,7 @@ button.close {
   background-color:#008bcc;
 }
 .skin-blue .main-header li.user-header {
-  background-color: #3c8dbc;
+  background-color: #008bcc;
 }
 .skin-blue .content-header {
   background: transparent;
@@ -16187,7 +16209,7 @@ button.close {
 .skin-blue .sidebar-menu > li.active > a {
   color: #ffffff;
   background: #1e282c;
-  border-left-color: #3c8dbc;
+  border-left-color: #fff;
 }
 .skin-blue .sidebar-menu > li > .treeview-menu {
   margin: 0 1px;
@@ -20112,7 +20134,7 @@ a:focus {
   background-color: #e7e7e7;
 }
 .btn-primary {
-  background-color: #3c8dbc;
+  background-color:#008bcc;
   border-color: #367fa9;
 }
 .btn-primary:hover,
@@ -20328,7 +20350,7 @@ a:focus {
   background: transparent;
   color: #444;
   border-top: 0;
-  border-left-color: #3c8dbc;
+  border-left-color: #fff;
 }
 .nav-stacked > li.header {
   border-bottom: 1px solid #ddd;

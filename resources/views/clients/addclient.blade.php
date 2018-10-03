@@ -1,7 +1,7 @@
 @extends('adminlte::layouts.app')
 
 @section('htmlheader_title')
-	{{ trans('adminlte_lang::message.AddClient') }}
+	{{ trans('adminlte_lang::message.addclient') }}
 @endsection
 @section('main-content')
 	<div class="container-fluid spark-screen">
@@ -26,21 +26,21 @@
                                 <div class="panel-body">
                                     <form enctype="multipart/form-data" action="/clientSave" method="POST">
                                         <div class="form-group has-feedback ">
-                                        {{ Form::label('name','Title')}}
+                                        {{ Form::label('name','Company Name')}}
                                             <input placeholder="Full Name" name="title" value="" autofocus="autofocus" class="form-control" type="text" required>
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         </div>
-                                        <div class="form-group has-feedback">
-                                        {{ Form::label('name','Email')}}
-                                            <input placeholder="Email" name="email" value="{{ $user->email }}" class="form-control" type="email"  required/>
+                                        <!-- <div class="form-group has-feedback">
+                                        {{-- Form::label('name','Email') --}}
+                                            <input placeholder="Email" name="email" value="{{-- $user->email --}}" class="form-control" type="email"  required/>
                                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                                        </div>
+                                        </div> -->
 
 
                                                         <!-- <label>Update Profile Image</label>
                                         <input type="file" name="avatar">	 -->
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="pull-right btn btn-sm btn-primary">
+                                        <input type="submit" value="Save" class="pull-right btn btn-md btn-primary">
                                     
                                     </form>
             </div>

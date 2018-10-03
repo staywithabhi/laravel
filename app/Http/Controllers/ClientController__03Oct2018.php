@@ -29,56 +29,11 @@ class ClientController extends Controller
     }
     public function index(Request $request,Builder $htmlbuilder)
     {
-        // $clients= DB::connection('mysql2')->table('clients')->get();
-        // $members= new Members;
-      if($request->ajax())
-      {
-          $data='NULL';
-           $clients=DB::connection('mysql2')->table('clients')->select(['id','title']);
-          return Datatables::of($clients)
-          ->addColumn('action', function($row) {
-              return '<a href="/client/edit/'. $row->id .'" class="btn btn-primary">Edit</a>
-              <a data-href="/client/delete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>';
-          })
-          ->addColumn('addMember', function($row) {
-            return '<a href="/members/manage/'. $row->id .'" class="btn btn-primary">Manage Members</a>';
-        })
-        ->rawColumns(['action', 'addMember'])
-          ->make(true);
-      }
-      $html= $htmlbuilder
-    //   ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
-      ->addColumn(['data'=>'title','name'=>'title','title'=>'Company Name'])
-
-      ->addColumn([
-        'defaultContent' => '',
-        'data'           => 'addMember',
-        'name'           => 'add',
-        'title'          => 'Actions',
-        'render'         => null,
-        'orderable'      => false,
-        'searchable'     => false,
-        'exportable'     => false,
-        'printable'      => true,
-        'footer'         => '',
-    ])
-    ->addColumn([
-        'defaultContent' => '',
-        'data'           => 'action',
-        'name'           => 'delete',
-        'title'          => 'Actions',
-        'render'         => null,
-        'orderable'      => false,
-        'searchable'     => false,
-        'exportable'     => false,
-        'printable'      => true,
-        'footer'         => '',
-    ])
-    ;
-      return view('clients.client')->with(compact('html'));
-  
-
-  }
+        
+        $clients= DB::connection('mysql2')->table('clients')->get();
+        $members= new Members;
+            return view('clients.client')->with(compact('clients','members'));  
+    }
 
     public function addNewClient()
     {
@@ -98,11 +53,11 @@ class ClientController extends Controller
             $title = $request->input('title');
             $client->title= $title;
         }
-        // if($request->input('email'))
-        // {
-        //     $email = $request->input('email');
-        //     $client->email= $email;
-        // }
+        if($request->input('email'))
+        {
+            $email = $request->input('email');
+            $client->email= $email;
+        }
         
         // echo "abhishekdd <pre>";
         // print_r($user);
@@ -143,12 +98,12 @@ class ClientController extends Controller
     {
         $rules=array(
         'title' => 'required|max:255',
-        // 'email' => 'required|email|max:255',
+        'email' => 'required|email|max:255',
         );
         $validator=Validator::make(Input::all(),$rules);
         $this->validate($request, ['title'=>'required']);
         if($validator->fails()){
-            return redirect()->action('ClientController@index')->withErrors($validator)->withInput();
+            return redirect('editClient/'.$id)->withErrors($validator)->withInput();
         }
         else{
 			if($id){

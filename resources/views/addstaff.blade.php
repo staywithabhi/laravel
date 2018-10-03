@@ -37,12 +37,12 @@
                                         </div>
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Password')}}
-                                            <input placeholder="Enter Password here" name="password" class="form-control" type="password" required>
-                                            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                                            <input id="password-field" placeholder="Enter Password here" name="password" class="form-control" type="password" required />
+                                            <span title="Show Password" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password "></span>                                        
                                         </div>	
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','User Type')}}
-                                        <select  name ="usertype" class="form-control form-control-lg" required>
+                                        <select id="usertype" name ="usertype" class="form-control form-control-lg" required>
                                             <option value=''>Please Select A Role</option>
                                             <option value="standard">Standard</option>
                                             <option value="admin">Administrator</option>
@@ -58,7 +58,7 @@
                                                         <!-- <label>Update Profile Image</label>
                                         <input type="file" name="avatar">	 -->
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="pull-right btn btn-sm btn-primary">
+                                        <input type="submit" value="Save" class="pull-right btn btn-md btn-primary">
                                     
                                     </form>
             </div>
@@ -75,4 +75,20 @@
 		</div>
 	</div>
 
+@endsection
+@section('customscripts')
+<script type="text/javascript">
+        $(".toggle-password").click(function() {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                // alert("hello");
+                input.attr("type", "text");
+            } else
+            {
+                // alert("hello2");
+                input.attr("type", "password");
+            }
+        });
+    </script>
 @endsection

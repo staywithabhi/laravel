@@ -40,10 +40,10 @@ class StaffController extends Controller
             ->make(true);
         }
         $html= $htmlbuilder
-        ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
+        // ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
         ->addColumn(['data'=>'name','name'=>'name','title'=>'Name'])
         ->addColumn(['data'=>'email','name'=>'email','title'=>'Email'])
-        ->addColumn(['data'=>'usertype','name'=>'usertype','title'=>'Usertype'])
+        ->addColumn(['data'=>'usertype','name'=>'usertype','title'=>'User Type'])
         ->addColumn([
             'data'=>'avatar',
             'name'=>'avatar',
@@ -140,11 +140,11 @@ class StaffController extends Controller
 
     public function edit($id)
     {
-        $user=User::find($id);
+        $staff=User::find($id);
       
-        if($user){
+        if($staff){
 
-            return view('edituser')->with('user',$user);  
+            return view('edituser')->with('staff',$staff);  
         }
         else{
          

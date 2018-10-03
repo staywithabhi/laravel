@@ -1,6 +1,6 @@
 @extends('adminlte::layouts.app')
 @section('htmlheader_title')
-	{{ trans('adminlte_lang::message.AddClient') }}
+	{{ trans('adminlte_lang::message.editclient') }}
 @endsection
 @section('main-content')
 	<div class="container-fluid spark-screen">
@@ -26,20 +26,20 @@
                                         {{ Form::model($client,array('route'=>array('clientUpdate', $client->id),'method'=>'PUT'))}}
 
                                         <div class="form-group has-feedback ">
-                                            {{ Form::label('name','Title')}}
+                                            {{ Form::label('name','Company Name')}}
                                            {{ Form ::text('title',null,array('class'=>'form-control ','required'=>'required'))}}
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         </div>
 
-                                    <div class="form-group has-feedback ">
-                                            {{ Form::label('name','Email')}}
-                                           {{ Form ::email('email',null,array('class'=>'form-control','required'=>'required'))}}
-                                           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                                        </div>
+                                    <!-- // <div class="form-group has-feedback ">
+                                    //         {{-- Form::label('name','Email')--}}
+                                    //        {{-- Form ::email('email',null,array('class'=>'form-control','required'=>'required'))--}}
+                                    //        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                                    //     </div> -->
                                     	
 
                                         
-                                    {{Form::submit('Update',array('class'=>'btn btn-primary'))}}
+                                    {{Form::submit('Save',array('class'=>'pull-right btn btn-primary'))}}
                                     {{ Form::close()}}
             </div>
 
