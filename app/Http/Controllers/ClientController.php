@@ -31,6 +31,9 @@ class ClientController extends Controller
     {
         // $clients= DB::connection('mysql2')->table('clients')->get();
         // $members= new Members;
+        // echo "abhioshek";
+        // exit;
+        
       if($request->ajax())
       {
           $data='NULL';
@@ -38,30 +41,30 @@ class ClientController extends Controller
           return Datatables::of($clients)
           ->addColumn('action', function($row) {
               return '<a href="/client/edit/'. $row->id .'" class="btn btn-primary">Edit</a>
-              <a data-href="/client/delete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>';
+              <a data-href="/client/delete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>
+              <a href="/members/manage/'. $row->id .'" class="btn btn-success">Manage Members</a>';
           })
-          ->addColumn('addMember', function($row) {
-            return '<a href="/members/manage/'. $row->id .'" class="btn btn-primary">Manage Members</a>';
-        })
-        ->rawColumns(['action', 'addMember'])
+        //   ->addColumn('addMember', function($row) {
+        //     return '<a href="/members/manage/'. $row->id .'" class="btn btn-success">Manage Members</a>';
+        // })
+        // ->rawColumns(['action', 'addMember'])
           ->make(true);
       }
       $html= $htmlbuilder
     //   ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
       ->addColumn(['data'=>'title','name'=>'title','title'=>'Company Name'])
-
-      ->addColumn([
-        'defaultContent' => '',
-        'data'           => 'addMember',
-        'name'           => 'add',
-        'title'          => 'Actions',
-        'render'         => null,
-        'orderable'      => false,
-        'searchable'     => false,
-        'exportable'     => false,
-        'printable'      => true,
-        'footer'         => '',
-    ])
+    //   ->addColumn([
+    //     'defaultContent' => '',
+    //     'data'           => 'addMember',
+    //     'name'           => 'add',
+    //     'title'          => 'Actions',
+    //     'render'         => null,
+    //     'orderable'      => false,
+    //     'searchable'     => false,
+    //     'exportable'     => false,
+    //     'printable'      => true,
+    //     'footer'         => '',
+    // ])
     ->addColumn([
         'defaultContent' => '',
         'data'           => 'action',
@@ -73,8 +76,12 @@ class ClientController extends Controller
         'exportable'     => false,
         'printable'      => true,
         'footer'         => '',
-    ])
-    ;
+    ]);
+
+    // echo "<pre>";
+    // print_r($html);
+    // exit;
+
       return view('clients.client')->with(compact('html'));
   
 

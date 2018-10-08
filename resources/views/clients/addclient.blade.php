@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <form enctype="multipart/form-data" action="/clientSave" method="POST">
-                                        <div class="form-group has-feedback ">
+                                        <div class="form-group required has-feedback ">
                                         {{ Form::label('name','Company Name')}}
                                             <input placeholder="Full Name" name="title" value="" autofocus="autofocus" class="form-control" type="text" required>
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>

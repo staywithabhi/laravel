@@ -25,19 +25,19 @@
                                 </div>
                                 <div class="panel-body">
                                     <form enctype="multipart/form-data" action="/memberSave" method="POST">
-                                        <div class="form-group has-feedback ">
+                                        <div class="form-group required has-feedback ">
                                         {{ Form::label('name','Name')}}
                                             <input placeholder="Full Name" name="name" value="" autofocus="autofocus" class="form-control" type="text" required>
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         </div>
-                                        <div class="form-group has-feedback">
+                                        <div class="form-group required has-feedback">
                                         {{ Form::label('name','Email')}}
                                             <input placeholder="Email" name="email" value="{{ $user->email }}" class="form-control" type="email"  required/>
                                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                         </div>
-                                        <div class="form-group has-feedback">
+                                        <div class="form-group required has-feedback">
                                         {{ Form::label('name','Password')}}
-                                            <input placeholder="Enter Password here" id="password-field" name="password" class="form-control" type="password" required>
+                                            <input minlength="12" placeholder="Enter Password here" id="password-field" name="password" class="form-control" type="password" required>
                                             <!-- <span class="glyphicon glyphicon-lock form-control-feedback"></span> -->
                                            <span title="Show Password" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password "></span>
                                         </div>	
@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Avatar Image')}}
-                                            <input placeholder="Upload Profile Avatar" name="avatar" class="form-control" type="file" required>
+                                            <input placeholder="Upload Profile Avatar" name="avatar" class="form-control" type="file">
                                             <span class="glyphicon glyphicon-camera form-control-feedback"></span>
                                         </div>	
 

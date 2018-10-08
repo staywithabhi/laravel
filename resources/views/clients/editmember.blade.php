@@ -28,13 +28,13 @@
                                                     <img src="/uploads/avatars/{{ $member->avatar }}" class="img-circle" style="width:100px;height:100px" alt="User Image" />
                                                 </div>
 
-                                        <div class="form-group has-feedback ">
+                                        <div class="form-group required has-feedback ">
                                             {{ Form::label('name','Name')}}
                                            {{ Form ::text('name',null,array('class'=>'form-control ','required'=>'required'))}}
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         </div>
 
-                                    <div class="form-group has-feedback ">
+                                        <div class="form-group required has-feedback ">
                                             {{ Form::label('name','Email')}}
                                            {{ Form ::email('email',null,array('class'=>'form-control','required'=>'required'))}}
                                            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -42,8 +42,9 @@
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Password')}}
                                             <input id="password-field" placeholder="Please leave empty to use old existing password" name="password" class="form-control" type="password" >
-                                            <span title="Show Password" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password "></span>                                        </div>	
-                                        <div class="form-group has-feedback">
+                                            <span title="Show Password" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password "></span>                                        
+                                        </div>	
+                                        <div class="form-group  has-feedback">
                                         {{ Form::label('name','Roles')}}
                                             <div class="row">
                                                 <div class="col-md-4">

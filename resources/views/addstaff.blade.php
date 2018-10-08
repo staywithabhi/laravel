@@ -23,24 +23,24 @@
                                 <div class="panel-heading">
                                     <b>Staff Details</b>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body ">
                                     <form enctype="multipart/form-data" action="/saveStaff" method="POST">
-                                        <div class="form-group has-feedback ">
-                                        {{ Form::label('name','Name')}}
+                                        <div class="form-group required has-feedback ">
+                                        {{ Form::label('name','Name','class','control-label')}}
                                             <input placeholder="Full Name" name="name" value="" autofocus="autofocus" class="form-control" type="text" required>
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         </div>
-                                        <div class="form-group has-feedback">
+                                        <div class="form-group required has-feedback">
                                         {{ Form::label('name','Email')}}
                                             <input placeholder="Email" name="email" value="{{ $user->email }}" class="form-control" type="email"  required/>
                                             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                                         </div>
-                                        <div class="form-group has-feedback">
+                                        <div class="form-group required has-feedback">
                                         {{ Form::label('name','Password')}}
-                                            <input id="password-field" placeholder="Enter Password here" name="password" class="form-control" type="password" required />
+                                            <input minlength="12" id="password-field" placeholder="Enter Password here" name="password" class="form-control" type="password" required />
                                             <span title="Show Password" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password "></span>                                        
                                         </div>	
-                                        <div class="form-group has-feedback">
+                                        <div class="form-group required has-feedback">
                                         {{ Form::label('name','User Type')}}
                                         <select id="usertype" name ="usertype" class="form-control form-control-lg" required>
                                             <option value=''>Please Select A Role</option>
@@ -51,7 +51,7 @@
                                         </div>
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Avatar Image')}}
-                                            <input placeholder="Upload Profile Avatar" name="avatar" class="form-control" type="file" required>
+                                            <input placeholder="Upload Profile Avatar" name="avatar" class="form-control" type="file">
                                             <span class="glyphicon glyphicon-camera form-control-feedback"></span>
                                         </div>	
 

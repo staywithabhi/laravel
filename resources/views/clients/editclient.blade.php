@@ -25,7 +25,7 @@
 
                                         {{ Form::model($client,array('route'=>array('clientUpdate', $client->id),'method'=>'PUT'))}}
 
-                                        <div class="form-group has-feedback ">
+                                        <div class="form-group required has-feedback ">
                                             {{ Form::label('name','Company Name')}}
                                            {{ Form ::text('title',null,array('class'=>'form-control ','required'=>'required'))}}
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
