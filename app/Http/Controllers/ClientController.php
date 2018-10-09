@@ -156,7 +156,7 @@ class ClientController extends Controller
     {
         $rules=array(
         'title' => 'required|max:255',
-        // 'email' => 'required|email|max:255',
+         'active' => 'required',
         );
         $validator=Validator::make(Input::all(),$rules);
         $this->validate($request, ['title'=>'required']);
@@ -168,7 +168,7 @@ class ClientController extends Controller
 
 				$client=Clients::find($id);
 				$client->title=$request->input('title');
-	            $client->email=$request->input('email');
+	            $client->active=$request->input('active');
 	            $client->save();
             }
             $request->session()->flash('alert-success', 'User was updated successfully!');
