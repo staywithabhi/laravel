@@ -37,34 +37,34 @@ class ClientController extends Controller
       if($request->ajax())
       {
           $data='NULL';
-           $clients=DB::connection('mysql2')->table('clients')->select(['id','title']);
+           $clients=DB::connection('mysql2')->table('clients')->select(['id','title','active']);
           return Datatables::of($clients)
           ->addColumn('action', function($row) {
               return '<a href="/client/edit/'. $row->id .'" class="btn btn-primary">Edit</a>
               <a data-href="/client/delete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>
               <a href="/members/manage/'. $row->id .'" class="btn btn-success">Manage Members</a>';
           })
-        //   ->addColumn('addMember', function($row) {
-        //     return '<a href="/members/manage/'. $row->id .'" class="btn btn-success">Manage Members</a>';
-        // })
-        // ->rawColumns(['action', 'addMember'])
+          ->addColumn('status', function($row) {
+            return $row->active ? "Enabled" : "Disabled" ;
+        })
+        ->rawColumns(['action', 'status'])
           ->make(true);
       }
       $html= $htmlbuilder
     //   ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
       ->addColumn(['data'=>'title','name'=>'title','title'=>'Company Name'])
-    //   ->addColumn([
-    //     'defaultContent' => '',
-    //     'data'           => 'addMember',
-    //     'name'           => 'add',
-    //     'title'          => 'Actions',
-    //     'render'         => null,
-    //     'orderable'      => false,
-    //     'searchable'     => false,
-    //     'exportable'     => false,
-    //     'printable'      => true,
-    //     'footer'         => '',
-    // ])
+      ->addColumn([
+        'defaultContent' => '',
+        'data'           => 'status',
+        'name'           => 'status',
+        'title'          => 'Status',
+        'render'         => null,
+        'orderable'      => false,
+        'searchable'     => false,
+        'exportable'     => false,
+        'printable'      => true,
+        'footer'         => '',
+    ])
     ->addColumn([
         'defaultContent' => '',
         'data'           => 'action',
@@ -77,6 +77,7 @@ class ClientController extends Controller
         'printable'      => true,
         'footer'         => '',
     ]);
+    
 
     // echo "<pre>";
     // print_r($html);
@@ -104,6 +105,11 @@ class ClientController extends Controller
         {
             $title = $request->input('title');
             $client->title= $title;
+        }
+        if($request->input('active'))
+        {
+            $status = $request->input('active');
+            $client->active= $status;
         }
         // if($request->input('email'))
         // {

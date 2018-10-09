@@ -30,6 +30,15 @@
                                             <input placeholder="Full Name" name="title" value="" autofocus="autofocus" class="form-control" type="text" required>
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         </div>
+                                        <div class="form-group required has-feedback">
+                                        {{ Form::label('name','Status')}}
+                                        <select id="status" name ="active" class="form-control form-control-lg" required>
+                                            <option value=''>Please select client status</option>
+                                            <option value="1">Enable</option>
+                                            <option value="0">Disable</option>
+                                        </select>       
+                                        <span class="glyphicon glyphicon-compressed form-control-feedback"></span>
+                                        </div>
                                         <!-- <div class="form-group has-feedback">
                                         {{-- Form::label('name','Email') --}}
                                             <input placeholder="Email" name="email" value="{{-- $user->email --}}" class="form-control" type="email"  required/>

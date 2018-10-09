@@ -30,6 +30,15 @@
                                            {{ Form ::text('title',null,array('class'=>'form-control ','required'=>'required'))}}
                                             <span class="glyphicon glyphicon-user form-control-feedback"></span>
                                         </div>
+                                        <div class="form-group required has-feedback">
+                                        {{ Form::label('name','Status')}}
+                                        <select id="status" name ="active" class="form-control form-control-lg" required>
+                                            <option value=''>Please select client status</option>
+                                            <option value="1" <?php if($client->active){echo "selected='selected'";} ?>>Enable</option>
+                                            <option value="0" <?php if(!$client->active){echo "selected='selected'";}?> >Disable</option>
+                                        </select>       
+                                        <span class="glyphicon glyphicon-compressed form-control-feedback"></span>
+                                        </div>
 
                                     <!-- // <div class="form-group has-feedback ">
                                     //         {{-- Form::label('name','Email')--}}
