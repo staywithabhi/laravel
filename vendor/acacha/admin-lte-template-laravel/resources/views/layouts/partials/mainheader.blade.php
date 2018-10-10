@@ -17,6 +17,16 @@
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">{{ trans('adminlte_lang::message.togglenav') }}</span>
         </a>
+
+        <div class="col-md-4 col-md-offset-3 client-list-header form-group required has-feedback">
+            <select id="clientlist" name ="clientlist" class="form-control form-control-lg" required>
+            <option value=''>Client List</option>
+            @foreach(\App\Clients::get() as $client)
+                <option value='{{$client->id}}'>{{$client->title}}</option>
+            @endforeach    
+            </select>       
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">

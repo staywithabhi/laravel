@@ -1,5 +1,7 @@
 @extends('adminlte::layouts.app')
-
+@section('staff')
+{!! 'class="active"' !!}
+@stop
 @section('htmlheader_title')
 	{{ trans('adminlte_lang::message.AddStaff') }}
 @endsection
@@ -44,11 +46,44 @@
                                         {{ Form::label('name','User Type')}}
                                         <select id="usertype" name ="usertype" class="form-control form-control-lg" required>
                                             <option value=''>Please Select A Role</option>
-                                            <option value="standard">Standard</option>
                                             <option value="admin">Administrator</option>
+                                            <option value="standard">Custom</option>
                                         </select>       
                                         <span class="glyphicon glyphicon-compressed form-control-feedback"></span>
                                         </div>
+
+                                        <div class="form-group  has-feedback user-module-roles" style="display:none">
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                {{ Form::label('name','Manage Clients :')}}
+                                                    <!-- <input class="member_role" type="checkbox" name="roles[manager]"> -->
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <input class="member_role" type="checkbox" id="clientR" name="role[readonly]">
+                                                    {{ Form::label('clientR','Read Only')}}
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <input class="member_role" type="checkbox" id="clientRW" name="role[readwrite]">         
+                                                    {{ Form::label('clientRW','Read & Write')}}
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                {{ Form::label('name','Manage Staff :')}}
+                                                    <!-- <input class="member_role" type="checkbox" name="roles[manager]"> -->
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <input class="member_role" type="checkbox" id="staffR" name="roles[readonly]">
+                                                    {{ Form::label('staffR','Read Only')}}
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <input class="member_role" type="checkbox" id="staffRW" name="roles[readwrite]">         
+                                                    {{ Form::label('staffRW','Read & Write')}}
+                                                </div>
+                                            </div>
+                                        <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
+                                        </div>
+
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Avatar Image')}}
                                             <input placeholder="Upload Profile Avatar" name="avatar" class="form-control" type="file">
@@ -90,5 +125,18 @@
                 input.attr("type", "password");
             }
         });
+        $(function() {
+            $('#usertype').change(function(){
+                // alert($(this).val());
+                if($(this).val()==='standard')
+                {
+               $('.user-module-roles').show();
+                }
+                else{
+                    $('.user-module-roles').hide();
+                }
+                // $('#' + $(this).val()).show();
+            });
+            });
     </script>
 @endsection

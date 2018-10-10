@@ -1,5 +1,7 @@
 @extends('adminlte::layouts.app')
-
+@section('staff')
+{!! 'class="active"' !!}
+@stop
 @section('htmlheader_title')
 	{{ trans('adminlte_lang::message.staff') }}
 @endsection

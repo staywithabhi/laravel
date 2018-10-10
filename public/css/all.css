@@ -20,6 +20,22 @@
   color:red;
   margin-left: 5px;
 }
+.client-list-header{
+padding: 0px!important;
+    top: 8px;
+  }
+  .client-list-header .form-control-feedback{color:#000;}
+
+  .client-list-header select{
+  background: transparent;
+  border: 1px solid #000;
+  color: #000;
+  border-radius: 5px;
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Chrome */
+    -webkit-appearance: none;
+}
 .field-icon {
   float: right!important;
   margin-right: 10px!important;
