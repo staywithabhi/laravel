@@ -3206,7 +3206,7 @@ table.text-center th {
   width: 380px;
   margin: 7% auto;
   background: #fff;
-  padding: 10px 5px 5px 0;
+  padding: 10px 5px 5px 5px;
 }
 @media (max-width: 768px) {
   .login-box,

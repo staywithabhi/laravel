@@ -13,6 +13,7 @@ use GuzzleHttp\Exception\RequestException;
 use App\User;
 // use App\Role;
 use App\Roleclient;
+use Auth;
 use App\Clients;
 use App\Members;
 use DB;
@@ -39,7 +40,7 @@ class MemberController extends Controller
         if($request->ajax())
         {
             $data='NULL';
-             $clients=DB::connection('mysql2')->table('users')->select(['id','name','email','avatar','roles'])->where('client_id',$id);
+             $clients=DB::connection('mysql2')->table('users')->select(['id','name','email','avatar','usertype'])->where('client_id',$id);
             return Datatables::of($clients)
             ->addColumn('action', function($row) {
                 return '<a href="/memberEdit/'. $row->id .'" class="btn btn-primary">Edit</a>
@@ -58,9 +59,9 @@ class MemberController extends Controller
         ->addColumn(['data'=>'name','name'=>'name','title'=>'Name'])
         ->addColumn(['data'=>'email','name'=>'email','title'=>'Email'])
         ->addColumn(
-            ['data'=>trans('roles'),
-            'name'=>'roles',
-            'title'=> trans('roles')
+            ['data'=>trans('usertype'),
+            'name'=>'usertype',
+            'title'=> trans('User Type')
             ])
         ->addColumn([
             // 'defaultContent' => '',
@@ -73,8 +74,10 @@ class MemberController extends Controller
             'exportable'     => false,
             'printable'      => true,
             'footer'         => '',
-            ])
-        ->addColumn([
+            ]);
+    if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('client-readwrite'))
+        {
+       $html=$html->addColumn([
             'defaultContent' => '',
             'data'           => 'action',
             'name'           => 'delete',
@@ -86,6 +89,7 @@ class MemberController extends Controller
             'printable'      => true,
             'footer'         => '',
         ]);
+       }
         return view('clients.members')->with(compact('html','id','title'));
     
 
@@ -133,6 +137,12 @@ class MemberController extends Controller
             $remember_token = $request->input('remember_token');
             $member->remember_token= $remember_token;
         }
+        if($request->input('usertype'))
+        {
+            $usertype = $request->input('usertype');
+            $member->usertype= $usertype;
+        }
+        $client = new GuzzleHttpClient();
         if($request->hasFile('avatar')){
             $avatar = $request->file('avatar');
             // echo "<pre>";
@@ -145,7 +155,7 @@ class MemberController extends Controller
             })->save( public_path('/uploads/avatars/' . $filename ) );
             // echo public_path('/uploads/avatars/' . $filename );
             // exit;
-            $client = new GuzzleHttpClient();
+  
             $clientRequest = $client
             //http://myportal.westgateit.co.uk
             ->post('http://myportal.westgateit.co.uk/api/uploadImage',
@@ -252,7 +262,12 @@ class MemberController extends Controller
 		    {
 	            $client_id = $request->input('client_id');
 	            $member->client_id= $client_id;
-      		  }
+                }
+                if($request->input('usertype'))
+                {
+                    $usertype = $request->input('usertype');
+                    $member->usertype= $usertype;
+                }
             if(Input::get('password')){
                 $hashed = Hash::make(Input::get('password'));
                 $member->password= $hashed;

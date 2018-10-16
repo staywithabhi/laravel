@@ -11,7 +11,7 @@ class Members extends Model
      protected $table = 'users';
 
          protected $fillable = [
-        'name', 'email', 'password','avatar','roles'
+        'name', 'email', 'password','avatar','usertype'
     ];
     public function roles()
     {

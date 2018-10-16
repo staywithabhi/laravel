@@ -17,31 +17,18 @@
                 </div>
             </div>
         @endif
-
-        <!-- search form (Optional) -->
-        <!-- <form action="#" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="{{ trans('adminlte_lang::message.search') }}..."/>
-              <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-              </span>
-            </div>
-        </form> -->
-        <!-- /.search form -->
-
-        <!-- Sidebar Menu -->
+       <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <!-- <li class="header">{{ trans('adminlte_lang::message.header') }}</li> -->
             <!-- Optionally, you can add icons to the links -->
             <li @yield('home')><a href="{{ url('home') }}"><i class='fa fa-home'></i> <span>{{ trans('adminlte_lang::message.dashboard') }}</span></a></li>
-            <li @yield('client')><a href="{{ url('/clients') }}"><i class='fa fa-users'></i> <span>Manage Clients</span></a></li>
-            @if($user->hasRole('admin'))
-            <li @yield('staff')><a href="{{ url('/staff') }}"><i class='fa fa-user-md'></i> <span>Manage Staff</span></a></li>
-           @endif 
+            @if($user->hasRole('admin')|| $user->hasRole('client-readonly') || $user->hasRole('client-readwrite'))
+                <li @yield('client')><a href="{{ url('/clients') }}"><i class='fa fa-users'></i> <span>Manage Clients</span></a></li>
+            @endif 
+            @if($user->hasRole('admin')|| $user->hasRole('staff-readonly') || $user->hasRole('staff-readwrite'))
+                <li @yield('staff')><a href="{{ url('/staff') }}"><i class='fa fa-user-md'></i> <span>Manage Staff</span></a></li>
+            @endif 
            <!-- <li><a href="{{ url('/company') }}"><i class='fa fa-user-md'></i> <span>Manage Companies</span></a></li> -->
-
-
-
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

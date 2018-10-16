@@ -38,10 +38,16 @@
                         <div class="col-lg-12 col-md-12">
                             <div class="panel panel-primary">
                                 <div class="panel-heading text-right">
+                                @if($user->hasRole('admin') || $user->hasRole('client-readwrite'))
                                     <b style="float:left;margin-top:5px">Manage Members For - "{{ $title }}"</b>
+                                  
             <a href="{{ route('addMember', ['id' => $id]) }}" class="btn btn-primary btn-add-new" style="border: 1px solid;">
                 <i class="voyager-plus"></i> <span>{{ trans('adminlte_lang::message.AddNew') }}</span>
             </a>
+            @else
+            <b style="">Manage Members For - "{{ $title }}"</b>
+
+            @endif
                                 </div>
                                 <div class="panel-body">
                                  

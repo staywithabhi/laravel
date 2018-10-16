@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -12,6 +11,7 @@ use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\RequestException;
 use App\Clients;
 use App\Members;
+use Auth;
 use App\User;
 use App\Role;
 use DB;
@@ -38,17 +38,35 @@ class ClientController extends Controller
       {
           $data='NULL';
            $clients=DB::connection('mysql2')->table('clients')->select(['id','title','active']);
-          return Datatables::of($clients)
-          ->addColumn('action', function($row) {
-              return '<a href="/client/edit/'. $row->id .'" class="btn btn-primary">Edit</a>
-              <a data-href="/client/delete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>
-              <a href="/members/manage/'. $row->id .'" class="btn btn-success">Manage Members</a>';
-          })
-          ->addColumn('status', function($row) {
-            return $row->active ? "Enabled" : "Disabled" ;
-        })
-        ->rawColumns(['action', 'status'])
-          ->make(true);
+           if(Auth::user()->hasRole('admin') ||  Auth::user()->hasRole('client-readwrite'))
+           {
+                return Datatables::of($clients)
+                ->addColumn('action', function($row) {
+                return '<a href="/client/edit/'. $row->id .'" class="btn btn-primary">Edit</a>
+                    <a data-href="/client/delete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>
+                    <a href="/members/manage/'. $row->id .'" class="btn btn-success">Manage Members</a>';
+                })
+                ->addColumn('status', function($row) {
+                    return $row->active ? "Enabled" : "Disabled" ;
+                })
+                ->rawColumns(['action', 'status'])
+                ->make(true);
+        }
+        else
+        {
+            return Datatables::of($clients)
+            ->addColumn('action', function($row) {
+                return '<a href="/members/manage/'. $row->id .'" class="btn btn-success">Manage Members</a>';
+            })
+            ->addColumn('status', function($row) {
+                return $row->active ? "Enabled" : "Disabled" ;
+            })
+            ->rawColumns(['action', 'status'])
+            ->make(true);
+        }
+
+
+
       }
       $html= $htmlbuilder
     //   ->addColumn(['data'=>'id','name'=>'id','title'=>'Id'])
@@ -97,8 +115,6 @@ class ClientController extends Controller
     {
         $client= new Clients;
          // $client->setConnection('mysql2');
-    
-       
         try {
  
         if($request->input('title'))
@@ -164,8 +180,8 @@ class ClientController extends Controller
             return redirect()->action('ClientController@index')->withErrors($validator)->withInput();
         }
         else{
-			if($id){
-
+            if($id)
+            {
 				$client=Clients::find($id);
 				$client->title=$request->input('title');
 	            $client->active=$request->input('active');
@@ -183,7 +199,7 @@ class ClientController extends Controller
         $client=Clients::find($id);
         if($client){
             $client->delete();
-           $msg ='Client  deleted successfully';
+           $msg ='Client deleted successfully';
            $type='success';
         }
         else{

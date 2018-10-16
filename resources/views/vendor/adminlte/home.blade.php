@@ -22,6 +22,8 @@
             </div>
             <!-- /.row -->
             <div class="row">
+            @if($user->hasRole('admin')|| $user->hasRole('client-readonly') || $user->hasRole('client-readwrite'))
+
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
@@ -44,6 +46,8 @@
                         </a>
                     </div>
                 </div>
+                @endif
+                @if($user->hasRole('admin')|| $user->hasRole('staff-readonly') || $user->hasRole('staff-readwrite'))
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-green">
                         <div class="panel-heading">
@@ -66,6 +70,7 @@
                         </a>
                     </div>
                 </div>
+                @endif
                 <!-- <div class="col-lg-3 col-md-6">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">

@@ -43,30 +43,23 @@
                                             <!-- <span class="glyphicon glyphicon-lock form-control-feedback"></span> -->
                                            <span title="Show Password" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password "></span>
                                         </div>	
-                                        <div class="form-group required has-feedback">
-                                        {{ Form::label('name','User Type')}}
-                                        <select id="usertype" name ="usertype" class="form-control form-control-lg" required>
-                                            <option value=''>Please Select A Role</option>
-                                            <option value="manager">Manager</option>
-                                            <option value="custom">Custom</option>
-                                        </select>       
-                                        <span class="glyphicon glyphicon-compressed form-control-feedback"></span>
-                                        </div>
-
-                                        <div class="form-group  has-feedback user-module-roles" style="display:none">
+                                        <div class="form-group has-feedback">
+                                        {{ Form::label('name','Roles')}}
                                             <div class="row">
-                                                <div class="col-md-4 text-right">
-                                                {{ Form::label('name','Manage Clients :')}}
+                                                <div class="col-md-4">
+                                                {{ Form::label('manager','Manager')}}
+                                                    <input class="member_role" id="manager" type="checkbox" name="roles[manager]">
                                                 </div>
-                                                <div class="col-md-4 text-center">
-                                                    <input class="client_role" type="checkbox" id="clientR" name="roles[readonly]">
-                                                    {{ Form::label('clientR','Read Only')}}
+                                                <div class="col-md-4">
+                                                {{ Form::label('readonly','Read Only')}}
+                                                    <input class="member_role" id="readonly" type="checkbox" name="roles[readonly]">
                                                 </div>
-                                                <div class="col-md-4 text-center">
-                                                        <input class="client_role" type="checkbox" id="clientRW" name="roles[readwrite]">
-                                                    {{ Form::label('clientRW','Read & Write')}}
+                                                <div class="col-md-4">
+                                                {{ Form::label('readwrite','Read Write')}}
+                                                    <input class="member_role" id="readwrite" type="checkbox" name="roles[readwrite]">         
                                                 </div>
                                             </div>
+                                        <!-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> -->
                                         </div>
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Avatar Image')}}
@@ -78,8 +71,6 @@
                                         <input type="file" name="avatar">	 -->
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="hidden" name="client_id" value="{{ $id }}">
-                                        <input class="admin-role hidden" type="checkbox" id="adminbox" name="roles[manager]">
-
                                         <input type="submit" value="Save" class="pull-right btn btn-md btn-primary">
                                     
                                     </form>
@@ -100,8 +91,8 @@
 @endsection
 @section('customscripts')
 <script type="text/javascript">
-	    $('.client_role').on('change', function() {
-		    $('.client_role').not(this).prop('checked', false);  
+	    $('.member_role').on('change', function() {
+		    $('.member_role').not(this).prop('checked', false);  
 		});
 
         $(".toggle-password").click(function() {
@@ -116,25 +107,5 @@
                 input.attr("type", "password");
             }
         });
-        $(function() {
-            $('#usertype').change(function(){
-                // alert($(this).val());
-                if($(this).val()==='custom')
-                {
-               $('.user-module-roles').show();
-               $("#adminbox").prop('checked', false); 
-            //    $(".user-module-roles input").attr("required","required");
-                }
-                else{
-                    
-                    $("#clientR").prop('checked', false); 
-                    $("#clientRW").prop('checked', false); 
-                    $('.user-module-roles').hide();
-                    $("#adminbox").prop('checked', true);  
-                    // $(".user-module-roles input").removeAttr("required");
-                }
-                // $('#' + $(this).val()).show();
-            });
-            });
     </script>
 @endsection

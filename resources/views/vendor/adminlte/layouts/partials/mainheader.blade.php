@@ -17,8 +17,9 @@
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">{{ trans('adminlte_lang::message.togglenav') }}</span>
         </a>
+        @if($user->hasRole('admin') || $user->hasRole('client-readwrite'))
 
-        <div class="col-md-4 col-md-offset-3 client-list-header form-group required has-feedback">
+        <div class="col-xs-4 col-xs-offset-3 client-list-header form-group required has-feedback">
             <select id="clientlist" name ="clientlist" class="form-control form-control-lg" required>
             <option value=''>Client List</option>
             @foreach(\App\Clients::get() as $client)
@@ -27,6 +28,7 @@
             </select>       
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
+        @endif
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
@@ -50,6 +52,7 @@
                                 <img src="/uploads/avatars/{{ $user->avatar }}" class="img-circle" alt="User Image" />
                                 <p>
                                     {{ Auth::user()->name }}
+                                    <br>
                                     <!-- Company " {{-- \App\Clients::where('id',Auth::user()->client_id)->first()->title --}} " -->
                                       {{ Auth::user()->email }}
                                     <small>{{ trans('adminlte_lang::message.login') }} 

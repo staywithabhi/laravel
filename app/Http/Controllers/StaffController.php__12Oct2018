@@ -33,7 +33,6 @@ class StaffController extends Controller
             $staff=DB::table('users')->select(['id','name','email','usertype','avatar'])
             ->whereNotIn('id', [$id])->get();
             return Datatables::of($staff)
-            
             ->addColumn('action', function($row) {
                 return '<a href="/userEdit/'. $row->id .'" class="btn btn-primary">Edit</a>
                 <a data-href="/userDelete/'. $row->id .'" class="btn btn-danger" title="Delete" data-toggle="modal" data-target="#confirm-delete">Delete</a>';
@@ -55,10 +54,7 @@ class StaffController extends Controller
             'exportable'     => false,
             'printable'      => true,
             'footer'         => '',
-            ]);
-            if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('staff-readwrite'))
-{
-$html=$html
+            ])
         ->addColumn([
             'defaultContent' => '',
             'data'           => 'action',
@@ -71,7 +67,6 @@ $html=$html
             'printable'      => true,
             'footer'         => '',
         ]);
-        }
         return view('staff')->with(compact('html'));
     }
 
@@ -83,9 +78,9 @@ $html=$html
     public function save(Request $request)
     {
         $user= new User;
-        // echo "<pre>";
-        // print_r($request->all());
-        // exit;
+        echo "<pre>";
+        print_r($request->all());
+        exit;
        
         try {
  
@@ -123,46 +118,21 @@ $html=$html
         }
 
         $user->save();
-        $roles=$request->input('roles');
-    //     $count=count($roles);
-    //   $roles=$request->input('roles');
-      if(count($roles)>0)
+        if($request->input('usertype'))
         {
-            $user->roles()->detach();
-		
-            foreach($roles as $key=>$value)
-            {
-                // echo $key;
-                 $user->roles()->attach(Role::where('name', $key)->first());
-            }
-            // if($request->input('usertype')=='admin'){
-            //     $usertype = $request->input('usertype');
-            //     $role_user=Role::where('name',$usertype)->first();
-            //     $user->roles()->attach($role_user);
-            // }
-            // elseif($request->input('usertype')=='custom')
-            // {
-            //     $client_role = $request->input('client');
-            //     $staff_role = $request->input('staff');
-            //     $role_clients=Role::where('name',$client_role)->first();
-            //     $role_staff=Role::where('name',$staff_role)->first();
-            //     $user->roles()->attach($role_clients);
-            //     $user->roles()->attach($role_staff);
-            // }
-
+            $usertype = $request->input('usertype');
+            $role_user=Role::where('name',$usertype)->first();
             // echo "role type is<pre>";
             // print_r($role_user);
             // exit;
             // $user->usertype= $usertype;
-            // $user->roles()->attach($role_user);
+            $user->roles()->attach($role_user);
         }
         $request->session()->flash('alert-success', 'User was added successfully!');
 
     }
     catch(\Illuminate\Database\QueryException $e){
         $errorCode = $e->errorInfo[1];
-        // print_r($e->errorInfo);
-        // exit;
         if($errorCode == '1062'){
             $request->session()->flash('alert-danger', 'Another record with same email already exists');
 
@@ -222,22 +192,11 @@ $html=$html
                 $user->avatar = $filename;
             }
             $user->save();
-            // $user->roles()->detach();
-            // if(Input::get('usertype')){
-            // $role_user=Role::where('name',Input::get('usertype'))->first();
-            // $user->roles()->attach($role_user);
-            // }
-            $roles=$request->input('roles');
-            if(count($roles)>0 && $request->input('usertype'))
-              {
-                  $user->roles()->detach();
-              
-                  foreach($roles as $key=>$value)
-                  {
-                      // echo $key;
-                       $user->roles()->attach(Role::where('name', $key)->first());
-                  }
-              }
+            $user->roles()->detach();
+            if(Input::get('usertype')){
+            $role_user=Role::where('name',Input::get('usertype'))->first();
+            $user->roles()->attach($role_user);
+            }
             // $user->roles()->attach($role_user);
 
             $request->session()->flash('alert-success', 'User was updated successfully!');

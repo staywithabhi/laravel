@@ -47,7 +47,7 @@
                                         <select id="usertype" name ="usertype" class="form-control form-control-lg" required>
                                             <option value=''>Please Select A Role</option>
                                             <option value="admin">Administrator</option>
-                                            <option value="standard">Custom</option>
+                                            <option value="custom">Custom</option>
                                         </select>       
                                         <span class="glyphicon glyphicon-compressed form-control-feedback"></span>
                                         </div>
@@ -58,12 +58,16 @@
                                                 {{ Form::label('name','Manage Clients :')}}
                                                     <!-- <input class="member_role" type="checkbox" name="roles[manager]"> -->
                                                 </div>
+                  <!-- <input class="client_role" type="checkbox" id="clientR" name="roles[client-readonly]"> -->
                                                 <div class="col-md-4 text-center">
-                                                    <input class="member_role" type="checkbox" id="clientR" name="role[readonly]">
+                                                    <input class="client_role" type="checkbox" id="clientR" name="roles[client-readonly]">
+                                                    <!-- <input type="radio" name="client" id="clientR"  value="client-readonly"> -->
+
                                                     {{ Form::label('clientR','Read Only')}}
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                                    <input class="member_role" type="checkbox" id="clientRW" name="role[readwrite]">         
+                                                        <input class="client_role" type="checkbox" id="clientRW" name="roles[client-readwrite]">
+                                                        <!-- <input type="radio" name="client"  id="clientRW" value="client-readwrite" > -->
                                                     {{ Form::label('clientRW','Read & Write')}}
                                                 </div>
                                             </div>
@@ -73,11 +77,16 @@
                                                     <!-- <input class="member_role" type="checkbox" name="roles[manager]"> -->
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                                    <input class="member_role" type="checkbox" id="staffR" name="roles[readonly]">
+                                                    <input class="staff_role" type="checkbox" id="staffR" name="roles[staff-readonly]">
+                                                    <!-- <input type="radio" name="staff"  id="staffR" value="staff-readonly" > -->
+
                                                     {{ Form::label('staffR','Read Only')}}
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                                    <input class="member_role" type="checkbox" id="staffRW" name="roles[readwrite]">         
+                                                    <input class="staff_role" type="checkbox" id="staffRW" name="roles[staff-readwrite]">   
+                                                    
+                                                       <!-- <input type="radio" name="staff"  id="staffRW" value="staff-readwrite" > -->
+
                                                     {{ Form::label('staffRW','Read & Write')}}
                                                 </div>
                                             </div>
@@ -92,6 +101,8 @@
 
                                                         <!-- <label>Update Profile Image</label>
                                         <input type="file" name="avatar">	 -->
+                                        <input class="admin-role hidden" type="checkbox" id="adminbox" name="roles[admin]">
+
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" value="Save" class="pull-right btn btn-md btn-primary">
                                     
@@ -113,6 +124,12 @@
 @endsection
 @section('customscripts')
 <script type="text/javascript">
+	    $('.client_role').on('change', function() {
+		    $('.client_role').not(this).prop('checked', false);  
+		});
+        $('.staff_role').on('change', function() {
+		    $('.staff_role').not(this).prop('checked', false);  
+		});
         $(".toggle-password").click(function() {
         $(this).toggleClass("fa-eye fa-eye-slash");
             var input = $($(this).attr("toggle"));
@@ -128,12 +145,16 @@
         $(function() {
             $('#usertype').change(function(){
                 // alert($(this).val());
-                if($(this).val()==='standard')
+                if($(this).val()==='custom')
                 {
                $('.user-module-roles').show();
+               $("#adminbox").prop('checked', false); 
+            //    $(".user-module-roles input").attr("required","required");
                 }
                 else{
                     $('.user-module-roles').hide();
+                    $("#adminbox").prop('checked', true);  
+                    // $(".user-module-roles input").removeAttr("required");
                 }
                 // $('#' + $(this).val()).show();
             });
