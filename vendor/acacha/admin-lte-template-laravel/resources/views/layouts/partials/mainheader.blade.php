@@ -17,16 +17,16 @@
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">{{ trans('adminlte_lang::message.togglenav') }}</span>
         </a>
-        @if($user->hasRole('admin') || $user->hasRole('client-readwrite'))
+        @if($user->hasRole('admin') || $user->hasRole('client-readwrite') || $user->hasRole('client-readonly'))
 
-        <div class="col-xs-4 col-xs-offset-3 client-list-header form-group required has-feedback">
+        <div class="col-xs-3 col-xs-offset-3 client-list-header form-group required has-feedback">
             <select id="clientlist" name ="clientlist" class="form-control form-control-lg" required>
             <option value=''>Client List</option>
             @foreach(\App\Clients::get() as $client)
                 <option value='{{$client->id}}'>{{$client->title}}</option>
             @endforeach    
             </select>       
-            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            <span class="glyphicon glyphicon-compressed form-control-feedback"></span>
         </div>
         @endif
         <!-- Navbar Right Menu -->

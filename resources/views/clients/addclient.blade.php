@@ -36,8 +36,8 @@
                                         {{ Form::label('name','Status')}}
                                         <select id="status" name ="active" class="form-control form-control-lg" required>
                                             <option value=''>Please select client status</option>
-                                            <option value="1">Enable</option>
-                                            <option value="0">Disable</option>
+                                            <option value="1">Enabled</option>
+                                            <option value="0">Disabled</option>
                                         </select>       
                                         <span class="glyphicon glyphicon-compressed form-control-feedback"></span>
                                         </div>

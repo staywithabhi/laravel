@@ -126,7 +126,7 @@ $html=$html
         $roles=$request->input('roles');
     //     $count=count($roles);
     //   $roles=$request->input('roles');
-      if(count($roles)>0)
+      if($request->input('roles') && count($roles)>0)
         {
             $user->roles()->detach();
 		

@@ -9,7 +9,7 @@
  */
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-#usertype {
+#usertype,#status {
   /* for Firefox */
   -moz-appearance: none;
   /* for Chrome */
@@ -24,12 +24,14 @@
 padding: 0px!important;
     top: 8px;
   }
-  .client-list-header .form-control-feedback{color:#000;}
+  .client-list-header .form-control-feedback{
+    /* color:#000; */
+  }
 
   .client-list-header select{
-  background: transparent;
-  border: 1px solid #000;
-  color: #000;
+  /* background: transparent; */
+  /* border: 1px solid #000; */
+  /* color: #000; */
   border-radius: 5px;
     /* for Firefox */
     -moz-appearance: none;

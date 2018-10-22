@@ -169,23 +169,15 @@ class MemberController extends Controller
                 ]
             ]);
             $clients = json_decode($clientRequest->getBody()->getContents());
-        //   echo "abhgfdishek<pre>";
-        //   print_r($clients);
-        //   exit;
             $member->avatar = $filename;
-
         }
         
         $member->save();
         $roles=$request->input('roles');
-        // echo "<pre>";
-        // print_r($roles);
-        // exit;
         $cid=$member->id;
         if(!empty($roles))
         {
-
-             $clientRequest = $client
+            $clientRequest = $client
             ->post('http://myportal.westgateit.co.uk/api/assignRoles',
             [
                 'form_params' => [
