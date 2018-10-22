@@ -86,7 +86,6 @@
                                         </div>	
                                         <input class="admin-role hidden" {{ $member->hasRole('manager') ? 'checked' : '' }} type="checkbox" id="adminbox" name="roles[manager]">
 
-
                                         
                                     {{Form::submit('Save',array('class'=>'pull-right btn btn-primary'))}}
                                     {{ Form::close()}}

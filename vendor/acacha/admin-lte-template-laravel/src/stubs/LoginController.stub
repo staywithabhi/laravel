@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Session;
 
 class LoginController extends Controller
 {
@@ -90,7 +91,7 @@ class LoginController extends Controller
     }
    public function authenticated(Request $request, $user)
         {
-
+            Session::put('lastLogin', $user->last_login_at);
             $user->update([
                 'last_login_at' => Carbon::now()->toDateTimeString(),
                 'last_login_ip' => $request->getClientIp()
