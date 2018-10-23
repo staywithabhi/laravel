@@ -17,6 +17,7 @@ use App\Role;
 use DB;
 use Hash;
 use Validator;
+use Session;
 use Image;
 
 class ClientController extends Controller
@@ -109,6 +110,13 @@ class ClientController extends Controller
     public function addNewClient()
     {
         return view('clients.addclient');
+    }
+
+    public function filterClient($postdata)
+    {
+
+    Session::put('clientSet', $postdata);
+      return "success";
     }
 
     public function save(Request $request)

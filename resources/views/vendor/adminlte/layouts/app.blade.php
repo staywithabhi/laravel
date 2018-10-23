@@ -107,6 +107,8 @@ desired effect
 @show
 <script src="{{ asset('/js/jquery.dataTables.js') }}"></script> 
 <script src="{{ asset('/js/dataTables.bootstrap.min.js') }}"></script> 
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+
 <script>
 $(".alert").delay(4000).slideUp(200, function() {
     $(this).alert('close');
@@ -114,8 +116,29 @@ $(".alert").delay(4000).slideUp(200, function() {
 $('#confirm-delete').on('show.bs.modal', function(e) {
     $(this).find('.btn-ok').attr('href', $(e.relatedTarget).data('href'));
 });
+$("#clientlist").on('change', function() {
+        var level = $(this).val();
+        // alert(level);
+        // return false;
+        if(level){
+               $.ajax ({
+                type: 'get',
+                url: '/filter/'+level,
+                data: '',
+                // data:'',
+                success : function(htmlresponse) {
+                    // $('#opt_lesson_list').append(htmlresponse);
+                    // alert(htmlresponse);
+                },error:function(e){
+                // alert("error");
+                console.log("error");
+                }
+            });
+        } 
+    });
 </script>
 
 @yield('customscripts')
+
 </body>
 </html>

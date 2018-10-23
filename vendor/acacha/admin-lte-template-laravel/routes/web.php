@@ -27,6 +27,8 @@ Route::get('userEdit/{id}',['as'=>'userEdit','uses'=>'StaffController@edit','mid
 Route::put('updateUser/{id}',['as'=>'updateUser','uses'=>'StaffController@update','middleware'=>'roles','roles'=>['admin','staff-readwrite']]);
 Route::post('saveStaff',['as'=>'save','uses'=>'StaffController@save','middleware'=>'roles','roles'=>['admin','staff-readwrite']]);
 /*Routes For Clients*/
+
+Route::get('filter/{postdata}',['as'=>'filter','uses'=>'ClientController@filterClient','middleware'=>'roles','roles'=>['client-readonly','admin','client-readwrite']]);
 Route::get('clients',['as'=>'clients','uses'=>'ClientController@index','middleware'=>'roles','roles'=>['client-readonly','admin','client-readwrite']]);
 Route::get('clientAdd',['as'=>'clientAdd','uses'=>'ClientController@addNewClient','middleware'=>'roles','roles'=>['client-readwrite','admin']]);
 Route::get('client/delete/{id}',['as'=>'clientDelete','uses'=>'ClientController@destroy','middleware'=>'roles','roles'=>['client-readwrite','admin']]);
