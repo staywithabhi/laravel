@@ -221,13 +221,16 @@ $html=$html
                 Image::make($avatar)->resize(300, 300)->save( public_path('/uploads/avatars/' . $filename ) );
                 $user->avatar = $filename;
             }
-            $user->save();
+            // $user->save();
             // $user->roles()->detach();
             // if(Input::get('usertype')){
             // $role_user=Role::where('name',Input::get('usertype'))->first();
             // $user->roles()->attach($role_user);
             // }
             $roles=$request->input('roles');
+            echo '<pre>';
+            print_r($roles);
+            exit;
             if(count($roles)>0 && $request->input('usertype'))
               {
                   $user->roles()->detach();

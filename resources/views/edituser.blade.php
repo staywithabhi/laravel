@@ -163,6 +163,10 @@
                 else{
                     $('.user-module-roles').hide();
                     $("#adminbox").prop('checked', true); 
+                    $(".client_role").prop('checked', false); 
+                    $(".staff_role").prop('checked', false); 
+
+                    
                     // $(".user-module-roles input").removeAttr("required");
                 }
                 // $('#' + $(this).val()).show();
