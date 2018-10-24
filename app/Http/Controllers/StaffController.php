@@ -239,10 +239,12 @@ $html=$html
            elseif ($request->input('usertype')=='custom') {
             $user->roles()->detach();
             $roles=$request->input('rolecustom');
-            foreach($roles as $key=>$value)
-            {
-                // echo $key;
-                 $user->roles()->attach(Role::where('name', $key)->first());
+            if(!empty($roles)){
+                foreach($roles as $key=>$value)
+                {
+                    // echo $key;
+                    $user->roles()->attach(Role::where('name', $key)->first());
+                }
             }
            }
 
