@@ -66,13 +66,13 @@
                                                     <!-- <input class="member_role" type="checkbox" name="roles[manager]"> -->
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                                    <input class="client_role" {{ $staff->hasRole('client-readonly') ? 'checked' : '' }} type="checkbox" id="clientR" name="roles[client-readonly]">
+                                                    <input class="client_role" {{ $staff->hasRole('client-readonly') ? 'checked' : '' }} type="checkbox" id="clientR" name="rolecustom[client-readonly]">
                                                     <!-- <input type="radio" name="client" {{-- $staff->hasRole('client-readonly') ? 'checked' : '' --}} id="clientR"  value="client-readonly" > -->
 
                                                     {{ Form::label('clientR','Read Only')}}
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                                    <input class="client_role" {{ $staff->hasRole('client-readwrite') ? 'checked' : '' }} type="checkbox" id="clientRW" name="roles[client-readwrite]">  
+                                                    <input class="client_role" {{ $staff->hasRole('client-readwrite') ? 'checked' : '' }} type="checkbox" id="clientRW" name="rolecustom[client-readwrite]">  
                                                         
                                                         <!-- <input type="radio" name="client" {{-- $staff->hasRole('client-readwrite') ? 'checked' : '' --}}  id="clientRW" value="client-readwrite" > -->
                                                     {{ Form::label('clientRW','Read & Write')}}
@@ -84,12 +84,12 @@
                                                     <!-- <input class="member_role" type="checkbox" name="roles[manager]"> -->
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                                    <input class="staff_role" {{ $staff->hasRole('staff-readonly') ? 'checked' : '' }}  type="checkbox" id="staffR" name="roles[staff-readonly]">
+                                                    <input class="staff_role" {{ $staff->hasRole('staff-readonly') ? 'checked' : '' }}  type="checkbox" id="staffR" name="rolecustom[staff-readonly]">
                                                     <!-- <input type="radio" name="staff" {{-- $staff->hasRole('staff-readonly') ? 'checked' : '' --}}  id="staffR" value="staff-readonly" > -->
                                                     {{ Form::label('staffR','Read Only')}}
                                                 </div>
                                                 <div class="col-md-4 text-center">
-                                             <input class="staff_role" {{ $staff->hasRole('staff-readwrite') ? 'checked' : '' }} type="checkbox" id="staffRW" name="roles[staff-readwrite]">   
+                                             <input class="staff_role" {{ $staff->hasRole('staff-readwrite') ? 'checked' : '' }} type="checkbox" id="staffRW" name="rolecustom[staff-readwrite]">   
                                             
                                                        <!-- <input type="radio" name="staff" {{-- $staff->hasRole('staff-readwrite') ? 'checked' : '' --}}  id="staffRW" value="staff-readwrite" > -->
 
@@ -108,7 +108,7 @@
                                                
                                         </div>	
 
-                                    <input class="admin-role hidden" {{ $staff->hasRole('admin') ? 'checked' : '' }}  type="checkbox" id="adminbox" name="roles[admin]">
+                                    <input class="admin-role hidden" {{ $staff->hasRole('admin') ? 'checked' : '' }}  type="checkbox" id="adminbox" name="roleadmin[admin]">
 
                                     {{Form::submit('Save',array('class'=>'pull-right btn btn-primary'))}}
                                     {{ Form::close()}}
@@ -131,6 +131,7 @@
 <script type="text/javascript">
     if($("#usertype").prop('selectedIndex')==1){
         $('.user-module-roles').show();
+        $("#adminbox").prop('checked', false); 
     }
     $('.client_role').on('change', function() {
 		    $('.client_role').not(this).prop('checked', false);  
