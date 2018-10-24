@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use Auth;
 use Hash;
@@ -9,6 +10,7 @@ use Image;
 use Validator;
 use DB;
 use App\User;
+
 class UserController extends Controller
 {
     //
@@ -34,6 +36,9 @@ class UserController extends Controller
             'new_password_confirmation' => 'required_with:new_password|same:new_password',
             );
             $validator=Validator::make(Input::all(),$rules);
+            if($validator->fails()){
+                return redirect('profile')->withErrors($validator)->withInput();
+            }
         }
         $this->validate($request, ['name'=>'required']);
         if (Hash::check($request->password, $user->password)) 

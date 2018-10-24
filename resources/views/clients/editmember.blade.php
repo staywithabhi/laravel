@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="form-group has-feedback">
                                         {{ Form::label('name','Password')}}
-                                            <input id="password-field" placeholder="Please leave empty to use old existing password" name="password" class="form-control" type="password" >
+                                            <input id="password-field" minlength="12" placeholder="Please leave empty to use old existing password" name="password" class="form-control" type="password" >
                                             <span title="Show Password" toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password "></span>                                        
                                         </div>	
 
@@ -108,6 +108,7 @@
 <script type="text/javascript">
     if($("#usertype").prop('selectedIndex')==2){
         $('.user-module-roles').show();
+        $("#adminbox").prop('checked', false); 
     }
 	    $('.client_role').on('change', function() {
 		    $('.client_role').not(this).prop('checked', false);  

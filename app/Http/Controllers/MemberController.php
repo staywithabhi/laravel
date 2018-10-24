@@ -288,10 +288,10 @@ class MemberController extends Controller
 
             $member->save();
             $roles=$request->input('roles');
-            if(!empty($roles))
-            {
-                 $clientRequest = $client
-                ->post('http://myportal.westgateit.co.uk/api/assignRoles',
+                     // $remote_url="http://myportal.westgateit.co.uk/api/assignRoles";
+            $local_url= "http://clientportal.local/api/assignRoles";                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                 $clientRequest = $client 
+                ->post($local_url,
                 [
                     'form_params' => [
                             'id'     =>  $id,
@@ -304,11 +304,7 @@ class MemberController extends Controller
                 // {
                 //     $member->roles()->attach(Roleclient::where('name', $key)->first());
                 // }
-    
-            }
-
-
-            
+               
             // $user->roles()->attach($role_user);
 
             $request->session()->flash('alert-success', 'User was updated successfully!');
