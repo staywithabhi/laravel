@@ -288,10 +288,10 @@ class MemberController extends Controller
 
             $member->save();
             $roles=$request->input('roles');
-                     // $remote_url="http://myportal.westgateit.co.uk/api/assignRoles";
-            $local_url= "http://clientportal.local/api/assignRoles";                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                     $remote_url="http://myportal.westgateit.co.uk/api/assignRoles";
+            // $local_url= "http://clientportal.local/api/assignRoles";                                                                                                                                                                                                                                                                                                                                                                                                                                         
                  $clientRequest = $client 
-                ->post($local_url,
+                ->post($remote_url,
                 [
                     'form_params' => [
                             'id'     =>  $id,
