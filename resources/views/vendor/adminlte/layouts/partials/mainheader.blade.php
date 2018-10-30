@@ -56,7 +56,7 @@
                                     <!-- Company " {{-- \App\Clients::where('id',Auth::user()->client_id)->first()->title --}} " -->
                                       {{ Auth::user()->email }}
   
-                                    <small>{{ trans('adminlte_lang::message.login') }} 
+                                    <small>{{ trans('adminlte_lang::message.lastlogin') }} 
                                     @if(Session::has('lastLogin'))
                                         {{ Session::get('lastLogin') }}
                                       @endif
