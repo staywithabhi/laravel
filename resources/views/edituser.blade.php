@@ -62,7 +62,7 @@
                                         <div class="form-group  has-feedback user-module-roles" style="display:none">
                                             <div class="row">
                                                 <div class="col-md-4 text-right">
-                                                {{ Form::label('name','Manage Members :')}}
+                                                {{ Form::label('name','Manage Clients :')}}
                                                     <!-- <input class="member_role" type="checkbox" name="roles[manager]"> -->
                                                 </div>
                                                 <div class="col-md-4 text-center">
